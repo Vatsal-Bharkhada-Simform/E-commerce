@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@font-face {
+	font-family: "General Sans";
+	src: url("./assets/fonts/GeneralSans-Variable.ttf") format("truetype");
+}
+
+body {
+	font-family: "General Sans", Arial, Helvetica, sans-serif;
+	font-weight: 500;
+}
