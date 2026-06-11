@@ -1,7 +1,18 @@
+import { Container } from "./layout/Container";
+import { Footer } from "./layout/Footer";
+import { Header } from "./layout/Header";
+import { SideBar } from "./layout/Sidebar";
+
 function App() {
 	return (
 		<>
-			<h1 className="text-5xl">E-commerce</h1>
+			<Container>
+				<Header />
+				<main className="flex-1 flex w-full">
+					<SideBar />
+				</main>
+				<Footer />
+			</Container>
 		</>
 	);
 }
