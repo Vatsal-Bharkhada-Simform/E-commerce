@@ -1,8 +1,16 @@
 import type { ReactNode } from "react";
 
-export function Container({ children }: { children: ReactNode }) {
+type ContainerProps = {
+	children: ReactNode;
+	type: "ROW" | "COLUMN";
+	className?: string;
+};
+
+export function Container({ children, type, className }: ContainerProps) {
 	return (
-		<div className="w-full h-screen flex flex-col overflow-hidden text-gray-900 bg-white">
+		<div
+			className={`w-full overflow-hidden text-gray-900 bg-white flex ${type === "COLUMN" ? "flex-col" : "flex-row"} ${className ?? ""}`}
+		>
 			{children}
 		</div>
 	);
