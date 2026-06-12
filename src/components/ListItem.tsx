@@ -5,7 +5,7 @@ export function ListItem({ title, href = "#", icon, isActive }: ListItemType) {
 		<li>
 			<a
 				href={href}
-				className={`flex gap-2 items-center p-2 font-medium  rounded-lg transition-all ${isActive ? "bg-blue-100 text-blue-600 hover:text-blue-600" : "text-gray-500 bg-white hover:bg-blue-50 hover:text-gray-700"}`}
+				className={`flex gap-2 items-center p-4 font-medium  rounded-2xl transition-all ${isActive ? "font-semibold bg-accent-light text-accent-hover" : "text-gray-500 bg-white hover:bg-accent-light"}`}
 			>
 				{icon}
 				{title}

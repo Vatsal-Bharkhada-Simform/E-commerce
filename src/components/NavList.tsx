@@ -41,7 +41,7 @@ export function NavList() {
 		<nav>
 			<ul className="list-none flex flex-col flex-1 gap-2">
 				{navListContent.map((item) => (
-					<ListItem {...item} />
+					<ListItem {...item} key={item.title} />
 				))}
 			</ul>
 		</nav>
