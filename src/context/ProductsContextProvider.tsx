@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactElement } from "react";
-import type { ProductList } from "../types/productTypes";
+import type { ProductList, ProductListState } from "../types/productTypes";
 import { productInstance } from "../API/axios";
 import toast from "react-hot-toast";
 import { ProductsContext } from "./ProductsContext";
@@ -9,14 +9,21 @@ export function ProductsContextProvider({
 }: {
 	children: ReactElement;
 }) {
-	const [products, setProducts] = useState<ProductList>([]);
+	const [products, setProducts] = useState<ProductListState>([]);
 
 	useEffect(() => {
 		async function fetchProducts() {
 			const response =
 				await productInstance.get<ProductList>("/products");
 			if (response.status === 200) {
-				setProducts(response.data);
+				setProducts(
+					response.data.map((item) => {
+						return {
+							...item,
+							discount: Math.round((Math.random() / 2) * 100),
+						};
+					})
+				);
 			} else {
 				toast.error("Error while fetching data");
 			}

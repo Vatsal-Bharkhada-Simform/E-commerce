@@ -15,6 +15,17 @@ interface Product {
 	images: string[];
 }
 
-type ProductList = Array<Product>;
+interface ProductWithAdditionalData extends Product {
+	discount: number;
+}
 
-export type { Product, Category, ProductList };
+type ProductList = Array<Product>;
+type ProductListState = Array<ProductWithAdditionalData>;
+
+export type {
+	Product,
+	Category,
+	ProductList,
+	ProductListState,
+	ProductWithAdditionalData,
+};

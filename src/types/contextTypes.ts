@@ -1,7 +1,7 @@
-import type { ProductList } from "./productTypes";
+import type { ProductListState } from "./productTypes";
 
 type ProductContextType = {
-	products: ProductList;
+	products: ProductListState;
 };
 
 export type { ProductContextType };
