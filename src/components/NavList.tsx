@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { ListItem } from "./ListItem";
+import { NavDropdown } from "./ListDropdown";
 
 function NavList({ children }: { children: ReactNode }) {
 	return (
@@ -10,5 +11,6 @@ function NavList({ children }: { children: ReactNode }) {
 }
 
 NavList.ListItem = ListItem;
+NavList.Dropdown = NavDropdown;
 
 export { NavList };

@@ -1,6 +1,6 @@
-import type { ListItemType } from "../types/ComponentTypes";
+import type { NavButton } from "../types/ComponentTypes";
 
-export function ListItem({ title, href = "#", icon, isActive }: ListItemType) {
+export function ListItem({ title, href = "#", icon, isActive }: NavButton) {
 	return (
 		<li>
 			<a

@@ -10,26 +10,45 @@ import { NavList } from "../components/NavList";
 
 const navListContent: Array<ListItemType> = [
 	{
+		type: "NAV_BUTTON",
 		title: "Home",
 		icon: <HomeSmile className="w-5" />,
 		isActive: true,
 	},
 	{
+		type: "NAV_DROPDOWN",
 		title: "Products",
 		icon: <Package className="w-5" />,
 		isActive: false,
+		items: [
+			{
+				type: "NAV_BUTTON",
+				title: "Wishlist",
+				icon: <Heart className="w-5" />,
+				isActive: false,
+			},
+			{
+				type: "NAV_BUTTON",
+				title: "Orders",
+				icon: <ShoppingBag01 className="w-5" />,
+				isActive: false,
+			},
+		],
 	},
 	{
+		type: "NAV_BUTTON",
 		title: "Wishlist",
 		icon: <Heart className="w-5" />,
 		isActive: false,
 	},
 	{
+		type: "NAV_BUTTON",
 		title: "Orders",
 		icon: <ShoppingBag01 className="w-5" />,
 		isActive: false,
 	},
 	{
+		type: "NAV_BUTTON",
 		title: "Account",
 		icon: <UserCircle className="w-5" />,
 		isActive: false,
@@ -44,9 +63,13 @@ export function SideBar() {
 			</div>
 
 			<NavList>
-				{navListContent.map((item) => (
-					<NavList.ListItem {...item} key={item.title} />
-				))}
+				{navListContent.map((item) => {
+					if (item.type === "NAV_BUTTON") {
+						return <NavList.ListItem {...item} key={item.title} />;
+					} else if (item.type === "NAV_DROPDOWN") {
+						return <NavList.Dropdown {...item} key={item.title} />;
+					}
+				})}
 			</NavList>
 		</aside>
 	);
