@@ -5,8 +5,10 @@ import {
 	ShoppingBag01,
 	UserCircle,
 } from "@untitledui/icons";
-import type { ListItemType } from "../types/ComponentTypes";
+import type { ListItemType, NavButton } from "../types/ComponentTypes";
 import { NavList } from "../components/NavList";
+import { useContext } from "react";
+import { ProductsContext } from "../context/ProductsContext";
 
 const navListContent: Array<ListItemType> = [
 	{
@@ -20,20 +22,7 @@ const navListContent: Array<ListItemType> = [
 		title: "Products",
 		icon: <Package className="w-5" />,
 		isActive: false,
-		items: [
-			{
-				type: "NAV_BUTTON",
-				title: "Wishlist",
-				icon: <Heart className="w-5" />,
-				isActive: false,
-			},
-			{
-				type: "NAV_BUTTON",
-				title: "Orders",
-				icon: <ShoppingBag01 className="w-5" />,
-				isActive: false,
-			},
-		],
+		items: [],
 	},
 	{
 		type: "NAV_BUTTON",
@@ -56,6 +45,30 @@ const navListContent: Array<ListItemType> = [
 ];
 
 export function SideBar() {
+	const { products } = useContext(ProductsContext);
+
+	const categories = Array.from(
+		new Set(products.map((product) => product.category.name))
+	);
+
+	const categoryItems: Array<NavButton> = categories.map((category) => {
+		return {
+			icon: <></>,
+			title: category,
+			isActive: false,
+			type: "NAV_BUTTON",
+		};
+	});
+
+	const listContent = navListContent.map((item) => {
+		if (item.type === "NAV_DROPDOWN" && item.title === "Products") {
+			return {
+				...item,
+				items: categoryItems,
+			};
+		} else return item;
+	});
+
 	return (
 		<aside className="flex flex-col h-full min-w-2xs p-4 gap-4 border-r border-r-gray-200">
 			<div className="flex items-center gap-2 py-4">
@@ -63,7 +76,7 @@ export function SideBar() {
 			</div>
 
 			<NavList>
-				{navListContent.map((item) => {
+				{listContent.map((item) => {
 					if (item.type === "NAV_BUTTON") {
 						return <NavList.ListItem {...item} key={item.title} />;
 					} else if (item.type === "NAV_DROPDOWN") {
