@@ -17,6 +17,7 @@ export function ProductCard({
 				<button
 					className="absolute cursor-pointer top-[4%] right-[4%] z-20 bg-white/40 p-3 rounded-4xl duration-300 backdrop-blur-sm"
 					onClick={() => setIsWishListed((prev) => !prev)}
+					title="Wishlist"
 				>
 					<Heart
 						size={22}
@@ -69,7 +70,11 @@ export function ProductCard({
 					>
 						Buy now
 					</Button>
-					<Button variant="SECONDARY" key={"button_s" + product.id}>
+					<Button
+						variant="SECONDARY"
+						key={"button_s" + product.id}
+						title="Add to cart"
+					>
 						<ShoppingCart01 />
 					</Button>
 				</div>
