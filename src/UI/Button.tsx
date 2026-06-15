@@ -18,7 +18,7 @@ export default function Button({
 }: ButtonProps) {
 	return (
 		<button
-			className={`${buttonClassNames[variant]} ${className ?? ""}`}
+			className={`${buttonClassNames[variant]} ${className}`}
 			{...props}
 		>
 			{props.children}

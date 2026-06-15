@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import type { ProductList, ProductListState } from "../types/productTypes";
 import { productInstance } from "../API/axios";
 import toast from "react-hot-toast";
@@ -32,11 +32,9 @@ export function ProductsContextProvider({
 		fetchProducts();
 	}, []);
 
-	const ctxValue = useMemo(() => {
-		return {
-			products,
-		};
-	}, [products]);
+	const ctxValue = {
+		products,
+	};
 
 	return (
 		<ProductsContext.Provider value={ctxValue}>

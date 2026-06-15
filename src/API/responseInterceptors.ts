@@ -1,6 +1,6 @@
 import { AxiosError, type AxiosResponse } from "axios";
-import { ProductListValidator } from "../validators/ProductValidator";
 import z from "zod";
+import { ProductListValidator } from "../validators/ProductValidator";
 import type { ProductList } from "../types/productTypes";
 
 function sanitizeData(response: AxiosResponse<ProductList>) {

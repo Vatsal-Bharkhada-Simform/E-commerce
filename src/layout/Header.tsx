@@ -1,4 +1,5 @@
 import { ShoppingCart01 } from "@untitledui/icons";
+import Button from "../UI/Button";
 
 export function Header() {
 	return (
@@ -11,14 +12,14 @@ export function Header() {
 				/>
 			</div>
 			<div>
-				<button className="px-4 py-3 rounded-2xl text-lg bg-accent hover:bg-accent-hover text-white cursor-pointer flex items-center gap-2">
+				<Button variant="PRIMARY" className="flex items-center gap-2">
 					<ShoppingCart01
 						fill="#fff"
 						className="inline-block"
 						size={18}
 					/>
 					Cart
-				</button>
+				</Button>
 			</div>
 		</header>
 	);

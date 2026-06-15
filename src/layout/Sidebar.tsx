@@ -7,8 +7,7 @@ import {
 } from "@untitledui/icons";
 import type { ListItemType, NavButton } from "../types/ComponentTypes";
 import { NavList } from "../components/NavList";
-import { useContext } from "react";
-import { ProductsContext } from "../context/ProductsContext";
+import { useProducts } from "../context/useProducts";
 
 const navListContent: Array<ListItemType> = [
 	{
@@ -45,7 +44,7 @@ const navListContent: Array<ListItemType> = [
 ];
 
 export function SideBar() {
-	const { products } = useContext(ProductsContext);
+	const { products } = useProducts();
 
 	const categories = Array.from(
 		new Set(products.map((product) => product.category.name))

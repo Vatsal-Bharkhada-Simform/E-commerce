@@ -6,23 +6,6 @@ import Button from "../UI/Button";
 export function Products() {
 	const { products } = useProducts();
 
-	// const renderProductCards = useCallback(
-	// 	function renderCards() {
-	// 		if (products.length === 0) {
-	// 			return <p>Loading</p>;
-	// 		} else {
-	// 			return (
-	// 				<>
-	// 					{products.map((product) => {
-	// 						<ProductCard product={product} />;
-	// 					})}
-	// 				</>
-	// 			);
-	// 		}
-	// 	},
-	// 	[products]
-	// );
-
 	return (
 		<section className="flex-1 flex flex-col overflow-hidden bg-card">
 			<div className="flex-1 overflow-y-auto p-8">

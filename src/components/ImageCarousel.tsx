@@ -2,7 +2,7 @@ import { useRef, useState, type UIEvent } from "react";
 
 export function ImageCarousel({ images }: { images: Array<string> }) {
 	const [imageInView, setImageInView] = useState<number>(0);
-	const imageRef = useRef<HTMLImageElement>(null);
+	const imageRef = useRef<HTMLImageElement | null>(null);
 
 	function handleScrollIntoView(index: number) {
 		if (!imageRef.current) return;
