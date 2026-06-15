@@ -13,8 +13,9 @@ export function ProductsContextProvider({
 
 	useEffect(() => {
 		async function fetchProducts() {
-			const response =
-				await productInstance.get<ProductList>("/products");
+			const response = await productInstance.get<ProductList>(
+				"/products?offset=0&limit=30"
+			);
 			if (response.status === 200) {
 				setProducts(
 					response.data.map((item) => {

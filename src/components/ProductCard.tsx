@@ -25,7 +25,7 @@ export function ProductCard({
 						fill={isWishListed ? "#fb2c36" : "transparent"}
 					/>
 				</button>
-				{product.discount > 40 && (
+				{product.discount >= 35 && (
 					<span className="absolute top-[4%] left-[4%] z-20 py-2 px-4 bg-white/40 backdrop-blur-sm rounded-4xl uppercase text-xs">
 						Best value
 					</span>
