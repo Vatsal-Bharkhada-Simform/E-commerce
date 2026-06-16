@@ -9,6 +9,7 @@ export function Header() {
 					type="search"
 					className="w-sm px-4 py-2 bg-gray-50 border border-border rounded-2xl"
 					placeholder="Search items..."
+					title="Search items"
 				/>
 			</div>
 			<div>

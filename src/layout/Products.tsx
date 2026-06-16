@@ -22,7 +22,7 @@ export function Products() {
 						</div>
 					</div>
 				</div>
-				<div className="pt-8 pb-4 px-2 text-lg text-text-muted">
+				<div className="pt-8 pb-4 px-2 text-lg text-gray-600">
 					Showing {products.length} out of 200 products
 				</div>
 				<div className="grid sm:grid-cols-3 md:grid-cols-4 gap-8">
