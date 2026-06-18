@@ -1,18 +1,18 @@
 import type { ReactElement } from "react";
 
-export type NavButton = {
+export type NavButtonType = {
 	type: "NAV_BUTTON";
 	title: string;
 	href?: string;
 	icon: ReactElement;
 	isActive: boolean;
 };
-export type NavDropdown = {
+export type NavDropdownType = {
 	type: "NAV_DROPDOWN";
 	title: string;
-	items: Array<NavButton>;
+	items: Array<NavButtonType>;
 	icon: ReactElement;
 	isActive: boolean;
 };
 
-export type ListItemType = NavButton | NavDropdown;
+export type ListItemType = NavButtonType | NavDropdownType;

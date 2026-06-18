@@ -5,7 +5,7 @@ import {
 	ShoppingBag01,
 	UserCircle,
 } from "@untitledui/icons";
-import type { ListItemType, NavButton } from "../types/ComponentTypes";
+import type { ListItemType, NavButtonType } from "../types/ComponentTypes";
 import { NavList } from "../components/NavList";
 import { useProducts } from "../context/useProducts";
 
@@ -50,7 +50,7 @@ export function SideBar() {
 		new Set(products.map((product) => product.category.name))
 	);
 
-	const categoryItems: Array<NavButton> = categories.map((category) => {
+	const categoryItems: Array<NavButtonType> = categories.map((category) => {
 		return {
 			icon: <></>,
 			title: category,

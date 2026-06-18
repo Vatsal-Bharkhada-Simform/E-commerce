@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import type { NavDropdown } from "../types/ComponentTypes";
 import { ChevronDown } from "@untitledui/icons";
+import type { NavDropdownType } from "../types/ComponentTypes";
 import { NavList } from "./NavList";
 
-export function NavDropdown({ title, isActive, items, icon }: NavDropdown) {
+export function NavDropdown({ title, isActive, items, icon }: NavDropdownType) {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const dropdownItems = useMemo(() => {
