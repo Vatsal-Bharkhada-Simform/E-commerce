@@ -1,4 +1,3 @@
-// import { useCallback } from "react";
 import { useProducts } from "../context/useProducts";
 import { ProductCard } from "../components/ProductCard";
 import Button from "../UI/Button";

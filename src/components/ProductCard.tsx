@@ -63,18 +63,10 @@ export function ProductCard({
 					</span>
 				</div>
 				<div className="flex gap-4">
-					<Button
-						variant="PRIMARY"
-						className="flex-1"
-						key={"button_p" + product.id}
-					>
+					<Button variant="PRIMARY" className="flex-1">
 						Buy now
 					</Button>
-					<Button
-						variant="SECONDARY"
-						key={"button_s" + product.id}
-						title="Add to cart"
-					>
+					<Button variant="SECONDARY" title="Add to cart">
 						<ShoppingCart01 />
 					</Button>
 				</div>
