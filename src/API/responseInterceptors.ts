@@ -4,7 +4,6 @@ import { ProductListValidator } from "../validators/ProductValidator";
 import type { ProductList } from "../types/productTypes";
 
 function sanitizeData(response: AxiosResponse<ProductList>) {
-	console.log(response.data);
 	response.data = ProductListValidator.parse(response.data);
 	return response;
 }
