@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactElement } from "react";
+import toast from "react-hot-toast";
 import type { ProductList, ProductListState } from "../types/productTypes";
 import { productInstance } from "../API/axios";
-import toast from "react-hot-toast";
 import { ProductsContext } from "./ProductsContext";
 
 export function ProductsContextProvider({

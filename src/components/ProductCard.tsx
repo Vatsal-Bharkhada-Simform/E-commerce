@@ -1,8 +1,8 @@
+import { useState } from "react";
+import { Heart, ShoppingCart01 } from "@untitledui/icons";
+import Button from "../UI/Button";
 import type { ProductWithAdditionalData } from "../types/productTypes";
 import { ImageCarousel } from "./ImageCarousel";
-import Button from "../UI/Button";
-import { Heart, ShoppingCart01 } from "@untitledui/icons";
-import { useState } from "react";
 
 export function ProductCard({
 	product,
