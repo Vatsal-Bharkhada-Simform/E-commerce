@@ -6,8 +6,10 @@ import { ImageCarousel } from "./ImageCarousel";
 
 export function ProductCard({
 	product,
+	setProduct,
 }: {
 	product: ProductWithAdditionalData;
+	setProduct: (product: ProductWithAdditionalData) => void;
 }) {
 	const [isWishListed, setIsWishListed] = useState<boolean>(false);
 
@@ -33,7 +35,10 @@ export function ProductCard({
 				)}
 				<ImageCarousel images={product.images} />
 			</div>
-			<div className="flex-1 flex flex-col justify-between gap-5 p-4">
+			<div
+				className="flex-1 flex flex-col justify-between gap-5 p-4 cursor-pointer"
+				onClick={() => setProduct(product)}
+			>
 				<div className="flex-1 flex flex-col gap-4 overflow-hidden">
 					<div className="flex gap-3 justify-start items-center">
 						<span className="text-4xl font-extrabold">
