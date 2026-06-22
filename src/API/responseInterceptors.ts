@@ -15,6 +15,7 @@ function handleResponseError(err: AxiosError | z.ZodError) {
 		console.error(err.message);
 		console.error(err.cause);
 	}
+	throw new Error(err.message);
 }
 
 export { sanitizeData, handleResponseError };
