@@ -8,6 +8,7 @@ import {
 import type { ListItemType, NavButtonType } from "../types/ComponentTypes";
 import { NavList } from "../components/NavList";
 import { useProducts } from "../context/useProducts";
+import { useMemo } from "react";
 
 const navListContent: Array<ListItemType> = [
 	{
@@ -46,27 +47,39 @@ const navListContent: Array<ListItemType> = [
 export function SideBar() {
 	const { products } = useProducts();
 
-	const categories = Array.from(
-		new Set(products.map((product) => product.category.name))
+	const categories = useMemo(
+		() =>
+			Array.from(
+				new Set(products.map((product) => product.category.name))
+			),
+		[products]
 	);
 
-	const categoryItems: Array<NavButtonType> = categories.map((category) => {
-		return {
-			icon: <></>,
-			title: category,
-			isActive: false,
-			type: "NAV_BUTTON",
-		};
-	});
+	const categoryItems: Array<NavButtonType> = useMemo(
+		() =>
+			categories.map((category) => {
+				return {
+					icon: <></>,
+					title: category,
+					isActive: false,
+					type: "NAV_BUTTON",
+				};
+			}),
+		[categories]
+	);
 
-	const listContent = navListContent.map((item) => {
-		if (item.type === "NAV_DROPDOWN" && item.title === "Products") {
-			return {
-				...item,
-				items: categoryItems,
-			};
-		} else return item;
-	});
+	const listContent = useMemo(
+		() =>
+			navListContent.map((item) => {
+				if (item.type === "NAV_DROPDOWN" && item.title === "Products") {
+					return {
+						...item,
+						items: categoryItems,
+					};
+				} else return item;
+			}),
+		[categoryItems]
+	);
 
 	return (
 		<aside className="flex flex-col h-full min-w-2xs p-4 gap-4 border-r border-r-gray-200">
@@ -76,11 +89,10 @@ export function SideBar() {
 
 			<NavList>
 				{listContent.map((item) => {
-					if (item.type === "NAV_BUTTON") {
-						return <NavList.ListItem {...item} key={item.title} />;
-					} else if (item.type === "NAV_DROPDOWN") {
+					if (item.type === "NAV_DROPDOWN") {
 						return <NavList.Dropdown {...item} key={item.title} />;
 					}
+					return <NavList.ListItem {...item} key={item.title} />;
 				})}
 			</NavList>
 		</aside>
