@@ -12,17 +12,21 @@ export function ProductsContextProvider({
 	const [products, setProducts] = useState<ProductListState>([]);
 
 	useEffect(() => {
+		const controller = new AbortController();
 		async function fetchProducts() {
 			try {
 				const response = await productInstance.get<ProductList>(
-					"/products?offset=0&limit=30"
+					"/products?offset=0&limit=30",
+					{
+						signal: controller.signal,
+					}
 				);
 				if (response.status === 200) {
 					setProducts(
 						response.data.map((item) => {
 							return {
 								...item,
-								discount: Math.round((Math.random() / 2) * 100),
+								discount: Math.round((Math.random() / 2) * 100), // Mock discount generation
 							};
 						})
 					);
@@ -36,6 +40,8 @@ export function ProductsContextProvider({
 			}
 		}
 		fetchProducts();
+
+		return () => controller.abort();
 	}, []);
 
 	const ctxValue = useMemo(
