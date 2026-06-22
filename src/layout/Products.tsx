@@ -22,14 +22,24 @@ export function Products() {
 					</div>
 				</div>
 				<div className="pt-8 pb-4 px-2 text-lg text-gray-600">
-					Showing {products.length} out of 200 products
+					{products.length > 0 &&
+						`Showing ${products.length} out of ${Math.max(products.length, 200)} products`}
 				</div>
 				<div className="grid sm:grid-cols-3 md:grid-cols-4 gap-8">
-					{products.map((product) => {
-						return (
-							<ProductCard product={product} key={product.id} />
-						);
-					})}
+					{products.length === 0 ? (
+						<div className="col-span-4 flex p-20 justify-center items-center bg-gray-200 rounded-4xl">
+							Loading Products...
+						</div>
+					) : (
+						products.map((product) => {
+							return (
+								<ProductCard
+									product={product}
+									key={product.id}
+								/>
+							);
+						})
+					)}
 				</div>
 			</div>
 		</section>
