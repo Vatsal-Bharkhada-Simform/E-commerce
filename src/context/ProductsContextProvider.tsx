@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactElement } from "react";
+import { useEffect, useMemo, useState, type ReactElement } from "react";
 import toast from "react-hot-toast";
 import type { ProductList, ProductListState } from "../types/productTypes";
 import { productInstance } from "../API/axios";
@@ -13,28 +13,37 @@ export function ProductsContextProvider({
 
 	useEffect(() => {
 		async function fetchProducts() {
-			const response = await productInstance.get<ProductList>(
-				"/products?offset=0&limit=30"
-			);
-			if (response.status === 200) {
-				setProducts(
-					response.data.map((item) => {
-						return {
-							...item,
-							discount: Math.round((Math.random() / 2) * 100),
-						};
-					})
+			try {
+				const response = await productInstance.get<ProductList>(
+					"/products?offset=0&limit=30"
 				);
-			} else {
-				toast.error("Error while fetching data");
+				if (response.status === 200) {
+					setProducts(
+						response.data.map((item) => {
+							return {
+								...item,
+								discount: Math.round((Math.random() / 2) * 100),
+							};
+						})
+					);
+				} else {
+					toast.error("Error while fetching data");
+				}
+			} catch (err) {
+				if (err instanceof Error) {
+					toast.error(`Error while fetching data: ${err.message}`);
+				}
 			}
 		}
 		fetchProducts();
 	}, []);
 
-	const ctxValue = {
-		products,
-	};
+	const ctxValue = useMemo(
+		() => ({
+			products,
+		}),
+		[products]
+	);
 
 	return (
 		<ProductsContext.Provider value={ctxValue}>
