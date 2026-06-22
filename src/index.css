@@ -5,7 +5,32 @@
 	src: url("./assets/fonts/GeneralSans-Variable.ttf") format("truetype");
 }
 
+@theme {
+	--inset-shadow-bottom: inset 10px 5px 100px 10px #000: --bg-app: #f5f4ef;
+
+	--color-panel: #ffffff;
+	--color-card: #faf9f5;
+
+	--color-accent: #3b593f;
+	--color-accent-hover: #2e4632;
+	--color-accent-light: rgba(59, 89, 63, 0.1);
+
+	--color-text-main: #1c231f;
+	--color-text-muted: #6b7770;
+
+	--color-border: #e3dfd3;
+
+	--shadow-sm: 0 0 14px 0px #2e463220;
+	--shadow-md: 0 0 14px 0px #2e463220;
+
+	--color-badge-new: #3b593f;
+}
+
 body {
 	font-family: "General Sans", Arial, Helvetica, sans-serif;
 	font-weight: 500;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
 }
