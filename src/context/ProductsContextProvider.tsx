@@ -1,14 +1,10 @@
-import { useEffect, useMemo, useState, type ReactElement } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import toast from "react-hot-toast";
 import type { ProductList, ProductListState } from "../types/productTypes";
 import { productInstance } from "../API/axios";
 import { ProductsContext } from "./ProductsContext";
 
-export function ProductsContextProvider({
-	children,
-}: {
-	children: ReactElement;
-}) {
+export function ProductsContextProvider({ children }: { children: ReactNode }) {
 	const [products, setProducts] = useState<ProductListState>([]);
 
 	useEffect(() => {
