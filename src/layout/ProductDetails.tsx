@@ -34,7 +34,7 @@ export function ProductDetails() {
 					<Container type="ROW" className="gap-4 p-2">
 						{selectedProduct.images.map((imageUrl, index) => {
 							return (
-								<div
+								<button
 									className={`w-30 rounded-2xl overflow-hidden transition-all duration-300 ${selectedImage === index ? "scale-100 shadow-image-card" : "scale-90"}`}
 									onClick={() => setSelectedImage(index)}
 								>
@@ -43,7 +43,7 @@ export function ProductDetails() {
 										alt="Product image"
 										key={imageUrl}
 									/>
-								</div>
+								</button>
 							);
 						})}
 					</Container>

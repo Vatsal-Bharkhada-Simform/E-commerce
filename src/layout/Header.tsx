@@ -9,7 +9,7 @@ export function Header() {
 					<h1 className="text-text-main font-bold text-4xl">Ferio</h1>
 				</div>
 			</div>
-			<div className="flex items-center gap-2 py-4">
+			<div className="flex items-center gap-2">
 				<input
 					type="search"
 					className="w-sm px-4 py-2 bg-gray-50 border border-border rounded-2xl"
