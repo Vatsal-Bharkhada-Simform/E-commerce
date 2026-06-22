@@ -5,7 +5,7 @@ export function ImageCarousel({ images }: { images: Array<string> }) {
 	const imageRef = useRef<HTMLDivElement | null>(null);
 
 	function handleScrollIntoView(index: number) {
-		if (!imageRef.current) return;
+		if (!imageRef.current || !imageRef.current.children[index]) return;
 		imageRef.current.children[index].scrollIntoView({
 			behavior: "smooth",
 			block: "nearest",
@@ -44,11 +44,11 @@ export function ImageCarousel({ images }: { images: Array<string> }) {
 				<div className="absolute bottom-3 left-4 z-10 flex p-3 rounded-4xl border border-gray-100/20 bg-gray-700/40 backdrop-blur-xs gap-3 transition-all duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto">
 					{images.map((_, index) => {
 						return (
-							<div
+							<button
 								className={`w-3 aspect-square rounded-xl cursor-pointer  ${imageInView === index ? "scale-125 bg-white" : "scale-100 bg-gray-200/70 border-4 border-white/0"}`}
 								key={_}
 								onClick={() => handleScrollIntoView(index)}
-							></div>
+							></button>
 						);
 					})}
 				</div>
