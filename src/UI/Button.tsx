@@ -14,6 +14,7 @@ const buttonClassNames: Record<Variant, string> = {
 export default function Button({
 	variant,
 	className = "",
+	children,
 	...props
 }: ButtonProps) {
 	return (
@@ -21,7 +22,7 @@ export default function Button({
 			className={`${buttonClassNames[variant]} ${className}`}
 			{...props}
 		>
-			{props.children}
+			{children}
 		</button>
 	);
 }
