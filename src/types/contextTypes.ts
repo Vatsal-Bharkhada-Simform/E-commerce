@@ -1,7 +1,7 @@
 import type { ProductListState } from "./productTypes";
 
 type ProductContextType = {
-	products: ProductListState;
+	products: ProductListState | null;
 };
 
 export type { ProductContextType };
