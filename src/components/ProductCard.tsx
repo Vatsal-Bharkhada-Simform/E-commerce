@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Heart, ShoppingCart01 } from "@untitledui/icons";
 import Button from "../UI/Button";
-import type { ProductWithAdditionalData } from "../types/productTypes";
-import { ImageCarousel } from "./ImageCarousel";
+import {
+	BEST_VALUE_DISCOUNT_THRESHOLD,
+	type ProductWithAdditionalData,
+} from "../types/productTypes";
 import { useProducts } from "../context/useProducts";
+import { ImageCarousel } from "./ImageCarousel";
 
 export function ProductCard({
 	product,
@@ -28,7 +31,7 @@ export function ProductCard({
 						fill={isWishListed ? "#fb2c36" : "transparent"}
 					/>
 				</button>
-				{product.discount >= 35 && (
+				{product.discount >= BEST_VALUE_DISCOUNT_THRESHOLD && (
 					<span className="absolute top-[4%] left-[4%] z-20 py-2 px-4 bg-white/40 backdrop-blur-sm rounded-4xl uppercase text-xs">
 						Best value
 					</span>

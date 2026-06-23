@@ -3,7 +3,10 @@ import { ArrowLeft, ShoppingCart01 } from "@untitledui/icons";
 import { useProducts } from "../context/useProducts";
 import Button from "../UI/Button";
 import { Container } from "./Container";
-import type { ProductWithAdditionalData } from "../types/productTypes";
+import {
+	BEST_VALUE_DISCOUNT_THRESHOLD,
+	type ProductWithAdditionalData,
+} from "../types/productTypes";
 
 export function ProductDetails({
 	selectedProduct,
@@ -55,7 +58,8 @@ export function ProductDetails({
 						<span className="inline-block py-2 px-4 rounded-4xl bg-accent/10 text-accent">
 							{selectedProduct.category.name}
 						</span>
-						{selectedProduct.discount >= 35 && (
+						{selectedProduct.discount >=
+							BEST_VALUE_DISCOUNT_THRESHOLD && (
 							<span className="inline-block py-2 px-4 bg-white/40 backdrop-blur-sm rounded-4xl">
 								Best value
 							</span>
