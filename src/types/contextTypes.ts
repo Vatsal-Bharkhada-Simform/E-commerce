@@ -10,4 +10,9 @@ type ProductContextType = {
 	setProduct: (product: ProductWithAdditionalData) => void;
 };
 
-export type { ProductContextType };
+type FilterContextType = {
+	searchQuery: string;
+	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export type { ProductContextType, FilterContextType };
