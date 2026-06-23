@@ -1,7 +1,11 @@
 import { ShoppingCart01 } from "@untitledui/icons";
 import Button from "../UI/Button";
 
-export function Header() {
+export function Header({
+	searchRef,
+}: {
+	searchRef: React.RefObject<HTMLInputElement>;
+}) {
 	return (
 		<header className="p-4 border-b border-b-gray-200 flex justify-between items-center">
 			<div>
@@ -17,6 +21,7 @@ export function Header() {
 					className="w-sm px-4 py-2 bg-gray-50 border border-border rounded-2xl"
 					placeholder="Search items..."
 					title="Search items"
+					ref={searchRef}
 				/>
 				<Button variant="PRIMARY" className="flex items-center gap-2">
 					<ShoppingCart01

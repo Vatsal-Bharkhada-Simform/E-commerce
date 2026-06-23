@@ -1,9 +1,15 @@
-export function Footer() {
+export function Footer({ focusOnSearch }: { focusOnSearch: () => void }) {
 	return (
-		<footer className="p-2 border-t border-t-gray-200 text-center text-sm">
+		<footer className="p-2 border-t border-t-gray-200 flex justify-center gap-4 text-sm">
 			<span className="text-gray-500">
 				&#169; 2026 Ferio, Built by Vatsal Bharkhada
 			</span>
+			<button
+				className="hover:underline cursor-pointer"
+				onClick={focusOnSearch}
+			>
+				Focus on search
+			</button>
 		</footer>
 	);
 }

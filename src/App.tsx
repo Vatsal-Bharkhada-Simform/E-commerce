@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { useProducts } from "./context/useProducts";
 import { Container } from "./layout/Container";
@@ -9,6 +10,12 @@ import { SideBar } from "./layout/Sidebar";
 
 function App() {
 	const { selectedProduct } = useProducts();
+	const searchRef = useRef<HTMLInputElement | null>(null);
+
+	function focusOnSearch() {
+		if (!searchRef.current) return;
+		searchRef.current.focus();
+	}
 
 	return (
 		<>
@@ -16,7 +23,7 @@ function App() {
 				type="COLUMN"
 				className="w-screen h-screen overflow-hidden"
 			>
-				<Header />
+				<Header searchRef={searchRef} />
 				<ErrorBoundary defaultMessage="Error while loading products">
 					{selectedProduct ? (
 						<Container
@@ -39,7 +46,7 @@ function App() {
 						</Container>
 					)}
 				</ErrorBoundary>
-				<Footer />
+				<Footer focusOnSearch={focusOnSearch} />
 			</Container>
 		</>
 	);
