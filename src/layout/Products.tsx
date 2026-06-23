@@ -3,7 +3,7 @@ import { ProductCard } from "../components/ProductCard";
 import Button from "../UI/Button";
 
 export function Products() {
-	const { products, setProduct } = useProducts();
+	const { products } = useProducts();
 
 	return (
 		<section className="flex-1 flex flex-col overflow-hidden bg-card">
@@ -34,7 +34,6 @@ export function Products() {
 						products.map((product) => {
 							return (
 								<ProductCard
-									setProduct={setProduct}
 									product={product}
 									key={product.id}
 								/>

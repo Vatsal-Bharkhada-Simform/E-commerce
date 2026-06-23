@@ -3,15 +3,15 @@ import { Heart, ShoppingCart01 } from "@untitledui/icons";
 import Button from "../UI/Button";
 import type { ProductWithAdditionalData } from "../types/productTypes";
 import { ImageCarousel } from "./ImageCarousel";
+import { useProducts } from "../context/useProducts";
 
 export function ProductCard({
 	product,
-	setProduct,
 }: {
 	product: ProductWithAdditionalData;
-	setProduct: (product: ProductWithAdditionalData) => void;
 }) {
 	const [isWishListed, setIsWishListed] = useState<boolean>(false);
+	const { setProduct } = useProducts();
 
 	return (
 		<div className="w-full bg-white border border-border shadow-md rounded-4xl flex flex-col gap-2 overflow-hidden">
