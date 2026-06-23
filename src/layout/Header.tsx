@@ -1,11 +1,24 @@
 import { ShoppingCart01 } from "@untitledui/icons";
 import Button from "../UI/Button";
+import { useFilter } from "../context/useFilter";
+import { useEffect, useState } from "react";
 
 export function Header({
 	searchRef,
 }: {
-	searchRef: React.RefObject<HTMLInputElement>;
+	searchRef: React.RefObject<HTMLInputElement | null>;
 }) {
+	const [inputValue, setInputValue] = useState("");
+	const { setSearchQuery } = useFilter();
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setSearchQuery(inputValue);
+		}, 300);
+
+		return () => clearTimeout(timer);
+	}, [inputValue, setSearchQuery]);
+
 	return (
 		<header className="p-4 border-b border-b-gray-200 flex justify-between items-center">
 			<div>
@@ -22,6 +35,8 @@ export function Header({
 					placeholder="Search items..."
 					title="Search items"
 					ref={searchRef}
+					value={inputValue}
+					onChange={(e) => setInputValue(e.target.value)}
 				/>
 				<Button variant="PRIMARY" className="flex items-center gap-2">
 					<ShoppingCart01

@@ -2,13 +2,23 @@ import { useProducts } from "../context/useProducts";
 import { ProductCard } from "../components/ProductCard";
 import Button from "../UI/Button";
 import { useState } from "react";
+import { useFilter } from "../context/useFilter";
+import type { ProductListState } from "../types/productTypes";
 
 export function Products() {
 	const [shouldCrash, setShouldCrash] = useState(false);
 	const { products } = useProducts();
+	const { searchQuery } = useFilter();
 
 	if (shouldCrash) {
 		throw new Error("Component failed to render");
+	}
+
+	let productsToDisplay: ProductListState = products;
+	if (searchQuery) {
+		productsToDisplay = products.filter((product) =>
+			product.title.toLowerCase().includes(searchQuery.toLowerCase())
+		);
 	}
 
 	return (
@@ -43,7 +53,7 @@ export function Products() {
 							Loading Products...
 						</div>
 					) : (
-						products.map((product) => {
+						productsToDisplay.map((product) => {
 							return (
 								<ProductCard
 									product={product}
