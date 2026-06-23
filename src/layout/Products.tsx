@@ -1,9 +1,15 @@
 import { useProducts } from "../context/useProducts";
 import { ProductCard } from "../components/ProductCard";
 import Button from "../UI/Button";
+import { useState } from "react";
 
 export function Products() {
+	const [shouldCrash, setShouldCrash] = useState(false);
 	const { products } = useProducts();
+
+	if (shouldCrash) {
+		throw new Error("Component failed to render");
+	}
 
 	return (
 		<section className="flex-1 flex flex-col overflow-hidden bg-card">
@@ -17,6 +23,12 @@ export function Products() {
 							<Button variant="PRIMARY">View Catalog</Button>
 							<Button variant="SECONDARY">
 								Explore products
+							</Button>
+							<Button
+								variant="GHOST"
+								onClick={() => setShouldCrash(true)}
+							>
+								Generate Error
 							</Button>
 						</div>
 					</div>
