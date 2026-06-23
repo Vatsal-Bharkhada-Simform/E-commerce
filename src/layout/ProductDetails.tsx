@@ -3,11 +3,16 @@ import { ArrowLeft, ShoppingCart01 } from "@untitledui/icons";
 import { useProducts } from "../context/useProducts";
 import Button from "../UI/Button";
 import { Container } from "./Container";
+import type { ProductWithAdditionalData } from "../types/productTypes";
 
-export function ProductDetails() {
+export function ProductDetails({
+	selectedProduct,
+}: {
+	selectedProduct: ProductWithAdditionalData;
+}) {
 	const [selectedImage, setSelectedImage] = useState(0);
 
-	const { selectedProduct, clearSelectedProduct } = useProducts();
+	const { clearSelectedProduct } = useProducts();
 
 	if (!selectedProduct) {
 		return <h1>No Product found</h1>;

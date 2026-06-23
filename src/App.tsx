@@ -22,7 +22,7 @@ function App() {
 						className="flex justify-center flex-1"
 					>
 						<div className="overflow-y-auto w-[70vw]">
-							<ProductDetails />
+							<ProductDetails selectedProduct={selectedProduct} />
 						</div>
 					</Container>
 				) : (
