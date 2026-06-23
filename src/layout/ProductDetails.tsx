@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { ArrowLeft, ShoppingCart01 } from "@untitledui/icons";
 import { useProducts } from "../context/useProducts";
 import Button from "../UI/Button";
 import { Container } from "./Container";
-import { useState } from "react";
 
 export function ProductDetails() {
 	const [selectedImage, setSelectedImage] = useState(0);
@@ -37,12 +37,9 @@ export function ProductDetails() {
 								<button
 									className={`w-30 rounded-2xl overflow-hidden transition-all duration-300 ${selectedImage === index ? "scale-100 shadow-image-card" : "scale-90"}`}
 									onClick={() => setSelectedImage(index)}
+									key={imageUrl}
 								>
-									<img
-										src={imageUrl}
-										alt="Product image"
-										key={imageUrl}
-									/>
+									<img src={imageUrl} alt="Product image" />
 								</button>
 							);
 						})}
