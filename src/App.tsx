@@ -1,55 +1,26 @@
-import { useRef } from "react";
-import { ErrorBoundary } from "./components/ErrorBoundary";
-import { useProducts } from "./context/useProducts";
-import { Container } from "./layout/Container";
-import { Footer } from "./layout/Footer";
-import { Header } from "./layout/Header";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { ProductDetails } from "./layout/ProductDetails";
 import { Products } from "./layout/Products";
-import { SideBar } from "./layout/Sidebar";
+import { RootLayout } from "./layout/RootLayout";
 
 function App() {
-	const { selectedProduct } = useProducts();
-	const searchRef = useRef<HTMLInputElement | null>(null);
-
-	function focusOnSearch() {
-		if (!searchRef.current) return;
-		searchRef.current.focus();
-	}
-
 	return (
 		<>
-			<Container
-				type="COLUMN"
-				className="w-screen h-screen overflow-hidden"
-			>
-				<Header searchRef={searchRef} />
-				<ErrorBoundary defaultMessage="Error while loading products">
-					{selectedProduct ? (
-						<Container
-							type="ROW"
-							className="flex justify-center flex-1"
-						>
-							<div className="overflow-y-auto w-[70vw]">
-								<ProductDetails
-									selectedProduct={selectedProduct}
-								/>
-							</div>
-						</Container>
-					) : (
-						<Container
-							type="ROW"
-							className="w-full flex-1 overflow-hidden"
-						>
-							<SideBar />
-							<main className="flex-1 flex flex-col overflow-hidden">
-								<Products />
-							</main>
-						</Container>
-					)}
-				</ErrorBoundary>
-				<Footer focusOnSearch={focusOnSearch} />
-			</Container>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<RootLayout />}>
+						<Route
+							index
+							element={<Navigate to="/products" replace />}
+						/>
+						<Route path="/products" element={<Products />} />
+						<Route
+							path="/products/:id"
+							element={<ProductDetails />}
+						/>
+					</Route>
+				</Routes>
+			</BrowserRouter>
 		</>
 	);
 }
