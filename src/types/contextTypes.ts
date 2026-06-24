@@ -5,9 +5,7 @@ import type {
 
 type ProductContextType = {
 	products: ProductListState;
-	selectedProduct: ProductWithAdditionalData | null;
-	clearSelectedProduct: () => void;
-	setProduct: (product: ProductWithAdditionalData) => void;
+	getProductById: (id: number) => ProductWithAdditionalData;
 };
 
 type FilterContextType = {
