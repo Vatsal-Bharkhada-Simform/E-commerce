@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { useProducts } from "../context/useProducts";
 import Button from "../UI/Button";
 import { BEST_VALUE_DISCOUNT_THRESHOLD } from "../types/productTypes";
-import { Container } from "./Container";
+import { Container } from "../layout/Container";
 
 export function ProductDetails() {
 	const [selectedImage, setSelectedImage] = useState(0);

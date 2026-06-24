@@ -4,8 +4,8 @@ import { ProductCard } from "../components/ProductCard";
 import Button from "../UI/Button";
 import { useFilter } from "../context/useFilter";
 import type { ProductListState } from "../types/productTypes";
-import { Container } from "./Container";
-import { SideBar } from "./Sidebar";
+import { Container } from "../layout/Container";
+import { SideBar } from "../layout/Sidebar";
 
 export function Products() {
 	const [shouldCrash, setShouldCrash] = useState(false);
