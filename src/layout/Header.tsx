@@ -6,7 +6,9 @@ export function Header() {
 		<header className="p-4 border-b border-b-gray-200 flex justify-between items-center">
 			<div>
 				<div>
-					<h1 className="text-text-main font-bold text-4xl">Ferio</h1>
+					<h1 className="text-text-main font-bold text-4xl">
+						<a href="/">Ferio</a>
+					</h1>
 				</div>
 			</div>
 			<div className="flex items-center gap-2">
