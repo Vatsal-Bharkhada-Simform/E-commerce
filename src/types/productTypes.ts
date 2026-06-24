@@ -22,6 +22,8 @@ interface ProductWithAdditionalData extends Product {
 type ProductList = Array<Product>;
 type ProductListState = Array<ProductWithAdditionalData>;
 
+export const BEST_VALUE_DISCOUNT_THRESHOLD = 35;
+
 export type {
 	Product,
 	Category,

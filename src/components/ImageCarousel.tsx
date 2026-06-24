@@ -47,6 +47,7 @@ export function ImageCarousel({ images }: { images: Array<string> }) {
 							<button
 								className={`w-3 aspect-square rounded-xl cursor-pointer  ${imageInView === index ? "scale-125 bg-white" : "scale-100 bg-gray-200/70 border-4 border-white/0"}`}
 								key={_}
+								title={"Move to image " + (index + 1)}
 								onClick={() => handleScrollIntoView(index)}
 							></button>
 						);

@@ -83,10 +83,6 @@ export function SideBar() {
 
 	return (
 		<aside className="flex flex-col h-full min-w-2xs p-4 gap-4 border-r border-r-gray-200">
-			<div className="flex items-center gap-2 py-4">
-				<h1 className="text-text-main font-bold text-4xl">Ferio</h1>
-			</div>
-
 			<NavList>
 				{listContent.map((item) => {
 					if (item.type === "NAV_DROPDOWN") {

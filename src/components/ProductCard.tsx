@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Heart, ShoppingCart01 } from "@untitledui/icons";
 import Button from "../UI/Button";
-import type { ProductWithAdditionalData } from "../types/productTypes";
+import {
+	BEST_VALUE_DISCOUNT_THRESHOLD,
+	type ProductWithAdditionalData,
+} from "../types/productTypes";
+import { useProducts } from "../context/useProducts";
 import { ImageCarousel } from "./ImageCarousel";
 
 export function ProductCard({
@@ -10,6 +14,7 @@ export function ProductCard({
 	product: ProductWithAdditionalData;
 }) {
 	const [isWishListed, setIsWishListed] = useState<boolean>(false);
+	const { setProduct } = useProducts();
 
 	return (
 		<div className="w-full bg-white border border-border shadow-md rounded-4xl flex flex-col gap-2 overflow-hidden">
@@ -26,14 +31,17 @@ export function ProductCard({
 						fill={isWishListed ? "#fb2c36" : "transparent"}
 					/>
 				</button>
-				{product.discount >= 35 && (
+				{product.discount >= BEST_VALUE_DISCOUNT_THRESHOLD && (
 					<span className="absolute top-[4%] left-[4%] z-20 py-2 px-4 bg-white/40 backdrop-blur-sm rounded-4xl uppercase text-xs">
 						Best value
 					</span>
 				)}
 				<ImageCarousel images={product.images} />
 			</div>
-			<div className="flex-1 flex flex-col justify-between gap-5 p-4">
+			<div
+				className="flex-1 flex flex-col justify-between gap-5 p-4 cursor-pointer"
+				onClick={() => setProduct(product)}
+			>
 				<div className="flex-1 flex flex-col gap-4 overflow-hidden">
 					<div className="flex gap-3 justify-start items-center">
 						<span className="text-4xl font-extrabold">
