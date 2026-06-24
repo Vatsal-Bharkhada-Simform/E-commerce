@@ -5,6 +5,7 @@ import { RootLayout } from "./layout/RootLayout";
 import { AuthLayout } from "./layout/AuthLayout";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
+import { ProtectedRoute } from "./routes/ProtectedRoute";
 
 function App() {
 	return (
@@ -16,16 +17,18 @@ function App() {
 						<Route path="/auth/login" element={<Login />} />
 					</Route>
 
-					<Route path="/" element={<RootLayout />}>
-						<Route
-							index
-							element={<Navigate to="/products" replace />}
-						/>
-						<Route path="/products" element={<Products />} />
-						<Route
-							path="/products/:id"
-							element={<ProductDetails />}
-						/>
+					<Route path="/" element={<ProtectedRoute />}>
+						<Route element={<RootLayout />}>
+							<Route
+								index
+								element={<Navigate to="/products" replace />}
+							/>
+							<Route path="/products" element={<Products />} />
+							<Route
+								path="/products/:id"
+								element={<ProductDetails />}
+							/>
+						</Route>
 					</Route>
 
 					<Route path="*" element={<Navigate to={"/auth/login"} />} />
