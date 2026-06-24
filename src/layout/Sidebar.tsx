@@ -1,51 +1,15 @@
-import {
-	Heart,
-	HomeSmile,
-	Package,
-	ShoppingBag01,
-	UserCircle,
-} from "@untitledui/icons";
-import type { ListItemType, NavButtonType } from "../types/ComponentTypes";
+import { useMemo } from "react";
+import { useSearchParams } from "react-router";
+import type { NavButtonType } from "../types/ComponentTypes";
 import { NavList } from "../components/NavList";
 import { useProducts } from "../context/useProducts";
-import { useMemo } from "react";
-
-const navListContent: Array<ListItemType> = [
-	{
-		type: "NAV_BUTTON",
-		title: "Home",
-		icon: <HomeSmile className="w-5" />,
-		isActive: true,
-	},
-	{
-		type: "NAV_DROPDOWN",
-		title: "Products",
-		icon: <Package className="w-5" />,
-		isActive: false,
-		items: [],
-	},
-	{
-		type: "NAV_BUTTON",
-		title: "Wishlist",
-		icon: <Heart className="w-5" />,
-		isActive: false,
-	},
-	{
-		type: "NAV_BUTTON",
-		title: "Orders",
-		icon: <ShoppingBag01 className="w-5" />,
-		isActive: false,
-	},
-	{
-		type: "NAV_BUTTON",
-		title: "Account",
-		icon: <UserCircle className="w-5" />,
-		isActive: false,
-	},
-];
+import { navListContent, sortOptions } from "../utils/sidebarData";
 
 export function SideBar() {
 	const { products } = useProducts();
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const currentSort = searchParams.get("sort");
 
 	const categories = useMemo(
 		() =>
@@ -82,7 +46,7 @@ export function SideBar() {
 	);
 
 	return (
-		<aside className="flex flex-col h-full min-w-2xs p-4 gap-4 border-r border-r-gray-200">
+		<aside className="flex flex-col h-full min-w-2xs p-4 gap-4 border-r border-r-gray-200 justify-between">
 			<NavList>
 				{listContent.map((item) => {
 					if (item.type === "NAV_DROPDOWN") {
@@ -91,6 +55,48 @@ export function SideBar() {
 					return <NavList.ListItem {...item} key={item.title} />;
 				})}
 			</NavList>
+			<div className="p-4 flex flex-col gap-4">
+				<span className="uppercase tracking-wider text-sm text-gray-500">
+					Sort by
+				</span>
+				<div className="flex flex-col gap-3">
+					{Object.entries(sortOptions).map(([, option]) => (
+						<div
+							className="flex gap-2 items-center"
+							key={option.name}
+						>
+							<input
+								type="radio"
+								title={option.name}
+								id={`sortOption:${option.name}`}
+								onChange={() => {
+									const updatedParams = new URLSearchParams(
+										searchParams
+									);
+									if (option.pathString === "relevance") {
+										updatedParams.delete("sort");
+									} else {
+										updatedParams.set(
+											"sort",
+											option.pathString
+										);
+									}
+									setSearchParams(updatedParams);
+								}}
+								checked={
+									currentSort === option.pathString ||
+									(!currentSort &&
+										option.pathString === "relevance")
+								}
+								className="accent-accent"
+							/>
+							<label htmlFor={`sortOption:${option.name}`}>
+								{option.name}
+							</label>
+						</div>
+					))}
+				</div>
+			</div>
 		</aside>
 	);
 }

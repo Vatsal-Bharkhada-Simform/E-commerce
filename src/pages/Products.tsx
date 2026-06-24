@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 import { useProducts } from "../context/useProducts";
 import { ProductCard } from "../components/ProductCard";
 import Button from "../UI/Button";
@@ -6,11 +7,16 @@ import { useFilter } from "../context/useFilter";
 import type { ProductListState } from "../types/productTypes";
 import { Container } from "../layout/Container";
 import { SideBar } from "../layout/Sidebar";
+import { sortOptions } from "../utils/sidebarData";
 
 export function Products() {
 	const [shouldCrash, setShouldCrash] = useState(false);
 	const { products } = useProducts();
 	const { searchQuery } = useFilter();
+	const [params] = useSearchParams();
+
+	const sortParams = params.get("sort");
+	console.log(params.get("sort"));
 
 	if (shouldCrash) {
 		throw new Error("Component failed to render");
@@ -21,6 +27,14 @@ export function Products() {
 		productsToDisplay = products.filter((product) =>
 			product.title.toLowerCase().includes(searchQuery.toLowerCase())
 		);
+	}
+
+	if (sortParams) {
+		productsToDisplay = productsToDisplay.toSorted((a, b) => {
+			return sortParams === sortOptions.LOW_TO_HIGH.pathString
+				? a.price - b.price
+				: b.price - a.price;
+		});
 	}
 
 	return (
