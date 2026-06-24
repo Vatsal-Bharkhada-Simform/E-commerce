@@ -36,9 +36,9 @@ export function LoginForm() {
 	return (
 		<form
 			onSubmit={handleSubmit(loginUser)}
-			className="flex flex-col gap-4"
+			className="flex flex-col gap-4 px-1"
 		>
-			<div className="flex flex-col gap-2 px-1">
+			<div className="flex flex-col gap-2">
 				<Input
 					type="text"
 					{...register("email")}
@@ -55,7 +55,7 @@ export function LoginForm() {
 					disabled={isSubmitting}
 				/>
 			</div>
-			<Button variant="PRIMARY" disabled={isSubmitting}>
+			<Button variant="DISPLAY" disabled={isSubmitting}>
 				Login
 			</Button>
 		</form>

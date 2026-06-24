@@ -232,7 +232,7 @@ export function SignUpForm({ formStep, setFormStep }: SignUpFormProps) {
 				{formStep < 3 ? (
 					<Button
 						type="button"
-						variant="PRIMARY"
+						variant="DISPLAY"
 						disabled={isSubmitting}
 						className="inline-flex items-center gap-2"
 						onClick={incrementStep}
@@ -241,7 +241,7 @@ export function SignUpForm({ formStep, setFormStep }: SignUpFormProps) {
 						<ArrowRight size={18} />
 					</Button>
 				) : (
-					<Button variant="PRIMARY" disabled={isSubmitting}>
+					<Button variant="DISPLAY" disabled={isSubmitting}>
 						Submit
 					</Button>
 				)}

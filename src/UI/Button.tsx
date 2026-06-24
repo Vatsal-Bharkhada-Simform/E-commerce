@@ -1,10 +1,12 @@
-type Variant = "PRIMARY" | "SECONDARY" | "GHOST" | "DANGER";
+type Variant = "DISPLAY" | "PRIMARY" | "SECONDARY" | "GHOST" | "DANGER";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	variant: Variant;
 }
 
 const buttonClassNames: Record<Variant, string> = {
+	DISPLAY:
+		"bg-accent hover:bg-accent-hover text-white cursor-pointer px-4 py-2 rounded-xl text-md transition-all duration-300 shadow-primary",
 	PRIMARY:
 		"flex justify-center items-center gap-2 bg-accent text-white cursor-pointer px-4 py-3 rounded-2xl text-md transition-all duration-300",
 	SECONDARY:
