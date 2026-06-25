@@ -58,15 +58,18 @@ export function useProductParams() {
 			const selectedPriceOption = Object.values(priceOptions).find(
 				(option) => option.pathString === priceParam
 			);
-			productsToDisplay = productsToDisplay.filter((product) => {
-				const discountedPrice =
-					product.price - (product.price * product.discount) / 100;
+			if (selectedPriceOption) {
+				productsToDisplay = productsToDisplay.filter((product) => {
+					const discountedPrice =
+						product.price -
+						(product.price * product.discount) / 100;
 
-				return (
-					discountedPrice > selectedPriceOption.lowerPriceLimit &&
-					discountedPrice <= selectedPriceOption.upperPriceLimit
-				);
-			});
+					return (
+						discountedPrice > selectedPriceOption.lowerPriceLimit &&
+						discountedPrice <= selectedPriceOption.upperPriceLimit
+					);
+				});
+			}
 		}
 		return productsToDisplay;
 	}

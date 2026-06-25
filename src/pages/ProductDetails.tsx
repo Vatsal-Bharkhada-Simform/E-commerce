@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, ShoppingCart01 } from "@untitledui/icons";
-import { useNavigate, useParams } from "react-router";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { useProducts } from "../context/useProducts";
 import Button from "../UI/Button";
 import { BEST_VALUE_DISCOUNT_THRESHOLD } from "../types/productTypes";
@@ -14,10 +14,14 @@ export function ProductDetails() {
 	const navigate = useNavigate();
 	const params = useParams();
 
+	if (!params.id) {
+		return <Navigate to={"/products"} />;
+	}
+
 	const product = getProductById(parseInt(params.id));
 
 	if (!product) {
-		return <h1>No Product found</h1>;
+		return <Navigate to={"/products"} />;
 	}
 
 	return (

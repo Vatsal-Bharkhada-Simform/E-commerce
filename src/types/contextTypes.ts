@@ -6,7 +6,7 @@ import type { LoginType, SignUpType, UserDataType } from "./formDataTypes";
 
 type ProductContextType = {
 	products: ProductListState;
-	getProductById: (id: number) => ProductWithAdditionalData;
+	getProductById: (id: number) => ProductWithAdditionalData | undefined;
 };
 
 type FilterContextType = {
