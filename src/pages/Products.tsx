@@ -1,19 +1,32 @@
-import { useState } from "react";
-import { useProducts } from "../context/useProducts";
+import { useQuery } from "@tanstack/react-query";
 import { ProductCard } from "../components/ProductCard";
-import Button from "../UI/Button";
 import type { ProductListState } from "../types/productTypes";
-import { Container } from "../layout/Container";
-import { SideBar } from "../layout/Sidebar";
 import { useProductFilters } from "../hooks/useProductFilters";
+import { fetchAllProducts } from "../API/services/fetchProducts";
 
 export function Products() {
-	const [shouldCrash, setShouldCrash] = useState(false);
-	const { products } = useProducts();
 	const { sortAndFilterProducts } = useProductFilters();
+	const {
+		data: products,
+		isLoading,
+		error,
+		isPending,
+	} = useQuery({
+		queryKey: ["products"],
+		queryFn: fetchAllProducts,
+		staleTime: 3_000_000,
+	});
 
-	if (shouldCrash) {
-		throw new Error("Component failed to render");
+	if (error) {
+		throw new Error("Failed to fetch product data: " + error.message);
+	}
+
+	if (isLoading || isPending) {
+		return (
+			<div className="col-span-4 flex p-20 justify-center items-center text-xl bg-accent/10 text-accent rounded-4xl mt-8">
+				Loading Products...
+			</div>
+		);
 	}
 
 	let productsToDisplay: ProductListState = products;
@@ -21,59 +34,24 @@ export function Products() {
 	productsToDisplay = sortAndFilterProducts(productsToDisplay);
 
 	return (
-		<Container type="ROW" className="w-full flex-1 overflow-hidden">
-			<SideBar />
-			<main className="flex-1 flex flex-col overflow-hidden">
-				<section className="flex-1 flex flex-col overflow-hidden bg-card">
-					<div className="flex-1 overflow-y-auto p-8">
-						<div>
-							<div className="p-8 flex flex-col gap-8 bg-white border border-border rounded-4xl">
-								<h2 className="text-3xl">
-									Explore our vast range of products
-								</h2>
-								<div className="flex gap-4">
-									<Button variant="PRIMARY">
-										View Catalog
-									</Button>
-									<Button variant="SECONDARY">
-										Explore products
-									</Button>
-									<Button
-										variant="GHOST"
-										onClick={() => setShouldCrash(true)}
-									>
-										Generate Error
-									</Button>
-								</div>
-							</div>
-						</div>
-						<div className="pt-8 pb-4 px-2 text-lg text-gray-600">
-							{productsToDisplay.length > 0 &&
-								`Showing ${productsToDisplay.length} out of ${products.length} products`}
-						</div>
-						<div className="grid sm:grid-cols-3 md:grid-cols-4 gap-8">
-							{products.length === 0 ? (
-								<div className="col-span-4 flex p-20 justify-center items-center text-xl bg-accent/10 text-accent rounded-4xl">
-									Loading Products...
-								</div>
-							) : productsToDisplay.length === 0 ? (
-								<div className="col-span-4 flex p-20 justify-center items-center text-xl bg-accent/10 text-accent rounded-4xl">
-									Nothing to show
-								</div>
-							) : (
-								productsToDisplay.map((product) => {
-									return (
-										<ProductCard
-											product={product}
-											key={product.id}
-										/>
-									);
-								})
-							)}
-						</div>
+		<>
+			<div className="pt-8 pb-4 px-2 text-lg text-gray-600">
+				{productsToDisplay.length > 0 &&
+					`Showing ${productsToDisplay.length} out of ${Math.max(productsToDisplay.length, 200)} products`}
+			</div>
+			<div className="grid sm:grid-cols-3 md:grid-cols-4 gap-8">
+				{productsToDisplay.length === 0 ? (
+					<div className="col-span-4 flex p-20 justify-center items-center text-xl bg-accent/10 text-accent rounded-4xl">
+						Nothing to show
 					</div>
-				</section>
-			</main>
-		</Container>
+				) : (
+					productsToDisplay.map((product) => {
+						return (
+							<ProductCard product={product} key={product.id} />
+						);
+					})
+				)}
+			</div>
+		</>
 	);
 }

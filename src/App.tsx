@@ -7,6 +7,7 @@ import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { ROUTES } from "./routes/routeStrings";
+import { ProductsLayout } from "./layout/ProductsLayout";
 
 function App() {
 	return (
@@ -32,10 +33,12 @@ function App() {
 									/>
 								}
 							/>
-							<Route
-								path={ROUTES.PRODUCT.ROOT}
-								element={<Products />}
-							/>
+							<Route element={<ProductsLayout />}>
+								<Route
+									path={ROUTES.PRODUCT.ROOT}
+									element={<Products />}
+								/>
+							</Route>
 							<Route
 								path={ROUTES.PRODUCT.INDIVIDUAL}
 								element={<ProductDetails />}

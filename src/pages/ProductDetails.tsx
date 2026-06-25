@@ -1,49 +1,35 @@
-import { useEffect, useState } from "react";
-import { ArrowLeft, ShoppingCart01 } from "@untitledui/icons";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
-import { useProducts } from "../context/useProducts";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, ShoppingCart01 } from "@untitledui/icons";
 import Button from "../UI/Button";
-import {
-	BEST_VALUE_DISCOUNT_THRESHOLD,
-	type ProductWithAdditionalData,
-} from "../types/productTypes";
+import { BEST_VALUE_DISCOUNT_THRESHOLD } from "../types/productTypes";
 import { Container } from "../layout/Container";
-import { FetchedProductValidator } from "../validators/ProductValidator";
 import { ROUTES } from "../routes/routeStrings";
+import { fetchProductsById } from "../API/services/fetchProducts";
 
 export function ProductDetails() {
-	const [productData, setProductData] =
-		useState<ProductWithAdditionalData | null>(null);
 	const [selectedImage, setSelectedImage] = useState(0);
-	const [isLoading, setIsLoading] = useState(true);
-
-	const { getProductById } = useProducts();
 
 	const navigate = useNavigate();
 	const params = useParams();
 
-	useEffect(() => {
-		async function fetchProductData() {
-			if (!params.id) {
-				navigate(ROUTES.PRODUCT.ROOT);
-				return;
-			}
+	const {
+		data: productData,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ["products", params.id],
+		queryFn: () => fetchProductsById(parseInt(params.id)),
+		staleTime: 3_000_000,
+	});
 
-			setIsLoading(true);
-			const product = await getProductById(parseInt(params.id));
-			const parsedData = FetchedProductValidator.safeParse(product);
-
-			if (!product || !parsedData.success) {
-				setIsLoading(false);
-				navigate(ROUTES.PRODUCT.ROOT);
-				return;
-			}
-
-			setIsLoading(false);
-			setProductData(parsedData.data);
-		}
-		fetchProductData();
-	}, [getProductById, params.id, navigate]);
+	if (error) {
+		toast.error("Failed to fetch product data");
+		console.error("Failed to fetch product data: " + error.message);
+		navigate(ROUTES.PRODUCT.ROOT);
+	}
 
 	if (isLoading || !productData) {
 		return (
