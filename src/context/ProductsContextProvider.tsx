@@ -59,7 +59,6 @@ export function ProductsContextProvider({ children }: { children: ReactNode }) {
 				`https://api.escuelajs.co/api/v1/products/${id}`
 			);
 			if (response.status === 200) {
-				console.log(response.data);
 				return {
 					...response.data,
 					discount: Math.round((Math.random() / 2) * 100), // Mock discount generation

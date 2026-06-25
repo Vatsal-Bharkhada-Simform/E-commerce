@@ -10,8 +10,7 @@ import { useProductParams } from "../hooks/useProductFilters";
 export function Products() {
 	const [shouldCrash, setShouldCrash] = useState(false);
 	const { products } = useProducts();
-	const { searchQuery } = useProductParams();
-	const { sortAndFilterProducts } = useProductParams();
+	const { searchQuery, sortAndFilterProducts } = useProductParams();
 
 	if (shouldCrash) {
 		throw new Error("Component failed to render");
