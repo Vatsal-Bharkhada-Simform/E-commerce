@@ -5,12 +5,12 @@ import type {
 	SignUpType,
 	UserDataType,
 } from "../types/formDataTypes";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 import type {
 	AuthenticationType,
 	LoginReturnType,
 } from "../types/contextTypes";
 import { getImageString } from "../utils/getImageString";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { AuthContext } from "./AuthContext";
 
 const LOCALSTORAGE_STORE = "USER_DETAILS";
