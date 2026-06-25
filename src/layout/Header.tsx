@@ -2,6 +2,7 @@ import { ShoppingCart01 } from "@untitledui/icons";
 import Button from "../UI/Button";
 import { useFilter } from "../context/useFilter";
 import { useEffect, useState } from "react";
+import { useProducts } from "../context/useProducts";
 
 export function Header({
 	searchRef,
@@ -10,6 +11,7 @@ export function Header({
 }) {
 	const [inputValue, setInputValue] = useState("");
 	const { setSearchQuery } = useFilter();
+	const { selectedProduct } = useProducts();
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -29,15 +31,17 @@ export function Header({
 				</div>
 			</div>
 			<div className="flex items-center gap-2">
-				<input
-					type="search"
-					className="w-sm px-4 py-2 bg-gray-50 border border-border rounded-2xl"
-					placeholder="Search items..."
-					title="Search items"
-					ref={searchRef}
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-				/>
+				{!selectedProduct && (
+					<input
+						type="search"
+						className="w-sm px-4 py-2 bg-gray-50 border border-border rounded-2xl"
+						placeholder="Search items..."
+						title="Search items"
+						ref={searchRef}
+						value={inputValue}
+						onChange={(e) => setInputValue(e.target.value)}
+					/>
+				)}
 				<Button variant="PRIMARY" className="flex items-center gap-2">
 					<ShoppingCart01
 						fill="#fff"

@@ -49,8 +49,13 @@ export function Products() {
 				</div>
 				<div className="grid sm:grid-cols-3 md:grid-cols-4 gap-8">
 					{products.length === 0 ? (
-						<div className="col-span-4 flex p-20 justify-center items-center bg-gray-200 rounded-4xl">
+						<div className="col-span-4 flex p-20 justify-center items-center bg-accent/10 text-accent rounded-4xl">
 							Loading Products...
+						</div>
+					) : searchQuery &&
+					  (!productsToDisplay || productsToDisplay.length === 0) ? (
+						<div className="col-span-4 flex p-20 justify-center items-center bg-accent/10 text-accent rounded-4xl">
+							No products found
 						</div>
 					) : (
 						productsToDisplay.map((product) => {
