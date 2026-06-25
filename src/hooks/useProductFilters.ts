@@ -14,8 +14,20 @@ type PricePathType = (typeof validPricePaths)[number];
 export function useProductParams() {
 	const [searchParams, setSearchParams] = useSearchParams();
 
+	const searchQuery = searchParams.get("q");
 	const sortParam = searchParams.get("sort") as SortPathType;
 	const priceParam = searchParams.get("price") as PricePathType;
+
+	const setSearchQuery = useCallback(
+		function setSearchQuery(query: string) {
+			setSearchParams((prevParams) => {
+				const updatedParams = new URLSearchParams(prevParams);
+				updatedParams.set("q", query);
+				return updatedParams;
+			});
+		},
+		[setSearchParams]
+	);
 
 	const setSortParam = useCallback(
 		function setSortParam(sortPathString: SortPathType) {
@@ -91,8 +103,10 @@ export function useProductParams() {
 	);
 
 	return {
+		searchQuery,
 		sortParam,
 		priceParam,
+		setSearchQuery,
 		setSortParam,
 		setPriceParam,
 		sortAndFilterProducts,

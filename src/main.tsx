@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { Toaster } from "react-hot-toast";
 import App from "./App.tsx";
 import { ProductsContextProvider } from "./context/ProductsContextProvider.tsx";
-import { FilterContextProvider } from "./context/FilterContextProvider.tsx";
 import "./index.css";
 import { AuthContextProvider } from "./context/AuthContextProvider.tsx";
 
@@ -22,9 +21,7 @@ createRoot(document.getElementById("root")!).render(
 		/>
 		<AuthContextProvider>
 			<ProductsContextProvider>
-				<FilterContextProvider>
-					<App />
-				</FilterContextProvider>
+				<App />
 			</ProductsContextProvider>
 		</AuthContextProvider>
 	</StrictMode>

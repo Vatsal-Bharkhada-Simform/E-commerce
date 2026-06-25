@@ -4,17 +4,13 @@ import type {
 } from "./productTypes";
 import type { LoginType, SignUpType } from "./formDataTypes";
 
-type ProductContextType = {
+export type ProductContextType = {
 	products: ProductListState;
 	getProductById: (
 		id: number
 	) => Promise<ProductWithAdditionalData | undefined>;
 };
 
-type FilterContextType = {
-	searchQuery: string;
-	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-};
 export type AuthenticationType =
 	| {
 			status: false;
@@ -41,5 +37,3 @@ export type AuthContextType = {
 	handleLogout: () => void;
 	userExists: (email: string) => boolean;
 };
-
-export type { ProductContextType, FilterContextType };

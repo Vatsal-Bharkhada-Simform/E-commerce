@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useProducts } from "../context/useProducts";
 import { ProductCard } from "../components/ProductCard";
 import Button from "../UI/Button";
-import { useFilter } from "../context/useFilter";
 import type { ProductListState } from "../types/productTypes";
 import { Container } from "../layout/Container";
 import { SideBar } from "../layout/Sidebar";
@@ -11,7 +10,7 @@ import { useProductParams } from "../hooks/useProductFilters";
 export function Products() {
 	const [shouldCrash, setShouldCrash] = useState(false);
 	const { products } = useProducts();
-	const { searchQuery } = useFilter();
+	const { searchQuery } = useProductParams();
 	const { sortAndFilterProducts } = useProductParams();
 
 	if (shouldCrash) {

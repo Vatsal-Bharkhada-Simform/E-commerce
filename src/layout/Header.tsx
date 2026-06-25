@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { LogOut, ShoppingCart } from "lucide-react";
 import Button from "../UI/Button";
-import { useFilter } from "../context/useFilter";
 import { useAuth } from "../context/useAuth";
+import { useProductParams } from "../hooks/useProductFilters";
 
 export function Header({
 	searchRef,
@@ -10,7 +10,7 @@ export function Header({
 	searchRef: React.RefObject<HTMLInputElement | null>;
 }) {
 	const [inputValue, setInputValue] = useState("");
-	const { setSearchQuery } = useFilter();
+	const { setSearchQuery } = useProductParams();
 	const { handleLogout } = useAuth();
 
 	useEffect(() => {
