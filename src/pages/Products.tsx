@@ -18,13 +18,15 @@ export function Products() {
 		throw new Error("Component failed to render");
 	}
 
-	let productsToDisplay: ProductListState = sortAndFilterProducts(products);
+	let productsToDisplay: ProductListState = products;
 
 	if (searchQuery) {
 		productsToDisplay = products.filter((product) =>
 			product.title.toLowerCase().includes(searchQuery.toLowerCase())
 		);
 	}
+
+	productsToDisplay = sortAndFilterProducts(productsToDisplay);
 
 	return (
 		<Container type="ROW" className="w-full flex-1 overflow-hidden">
@@ -54,13 +56,17 @@ export function Products() {
 							</div>
 						</div>
 						<div className="pt-8 pb-4 px-2 text-lg text-gray-600">
-							{products.length > 0 &&
-								`Showing ${products.length} out of ${Math.max(products.length, 200)} products`}
+							{productsToDisplay.length > 0 &&
+								`Showing ${productsToDisplay.length} out of ${Math.max(productsToDisplay.length, 200)} products`}
 						</div>
 						<div className="grid sm:grid-cols-3 md:grid-cols-4 gap-8">
 							{products.length === 0 ? (
-								<div className="col-span-4 flex p-20 justify-center items-center bg-gray-200 rounded-4xl">
+								<div className="col-span-4 flex p-20 justify-center items-center text-xl bg-accent/10 text-accent rounded-4xl">
 									Loading Products...
+								</div>
+							) : productsToDisplay.length === 0 ? (
+								<div className="col-span-4 flex p-20 justify-center items-center text-xl bg-accent/10 text-accent rounded-4xl">
+									Nothing to show
 								</div>
 							) : (
 								productsToDisplay.map((product) => {
