@@ -45,11 +45,7 @@ export function ProductCard({
 				<div className="flex-1 flex flex-col gap-4 overflow-hidden">
 					<div className="flex gap-3 justify-start items-center">
 						<span className="text-4xl font-extrabold">
-							$
-							{(
-								product.price -
-								(product.price * product.discount) / 100
-							).toFixed(2)}
+							${product.discountedPrice.toFixed(2)}
 						</span>
 						<span className="text-lg text-gray-400 line-through">
 							${product.price}

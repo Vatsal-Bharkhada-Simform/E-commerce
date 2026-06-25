@@ -83,6 +83,18 @@ export function useProductFilters() {
 						.toLowerCase()
 						.includes(searchQuery.toLowerCase())
 				);
+            }
+
+			if (sortParam) {
+				if (sortParam === sortOptions.LOW_TO_HIGH.pathString) {
+					productsToDisplay = productsToDisplay.toSorted(
+						(a, b) => a.discountedPrice - b.discountedPrice
+					);
+				} else if (sortParam === sortOptions.HIGH_TO_LOW.pathString) {
+					productsToDisplay = productsToDisplay.toSorted(
+						(a, b) => b.discountedPrice - a.discountedPrice
+					);
+				}
 			}
 
 			if (
@@ -94,14 +106,10 @@ export function useProductFilters() {
 				);
 				if (selectedPriceOption) {
 					productsToDisplay = productsToDisplay.filter((product) => {
-						const discountedPrice =
-							product.price -
-							(product.price * product.discount) / 100;
-
 						return (
-							discountedPrice >
+							product.discountedPrice >
 								selectedPriceOption.lowerPriceLimit &&
-							discountedPrice <=
+							product.discountedPrice <=
 								selectedPriceOption.upperPriceLimit
 						);
 					});

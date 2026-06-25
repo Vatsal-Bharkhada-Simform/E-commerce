@@ -99,13 +99,7 @@ export function ProductDetails() {
 							</div>
 							<div className="flex gap-3 justify-start items-center">
 								<span className="text-5xl font-extrabold">
-									$
-									{(
-										productData.price -
-										(productData.price *
-											productData.discount) /
-											100
-									).toFixed(2)}
+									${productData.discountedPrice.toFixed(2)}
 								</span>
 								<span className="text-xl text-gray-400 line-through">
 									${productData.price}
