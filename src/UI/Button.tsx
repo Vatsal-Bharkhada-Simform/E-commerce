@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 type Variant = "DISPLAY" | "PRIMARY" | "SECONDARY" | "GHOST" | "DANGER";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

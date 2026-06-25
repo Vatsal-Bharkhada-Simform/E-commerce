@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import { Link } from "react-router";
 import { LoginForm } from "../components/auth/LoginForm";
 import { AuthFormComposition } from "../layout/AuthFormComposition";

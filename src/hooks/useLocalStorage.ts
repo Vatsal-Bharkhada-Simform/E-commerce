@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import { useEffect, useState } from "react";
 
 export function useLocalStorage<T>(store: string, defaultValue: T) {

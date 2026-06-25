@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 export function getImageString(file: FileList): Promise<string> {
 	return new Promise((resolve, reject) => {
 		if (file.length === 0) {

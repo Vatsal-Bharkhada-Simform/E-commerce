@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import type z from "zod";
 import type { signupValidator } from "../validators/signupValidator";
 import type { loginValidator } from "../validators/loginValidator";

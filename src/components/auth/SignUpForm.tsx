@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import { useForm } from "react-hook-form";
 import { type MouseEvent } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";

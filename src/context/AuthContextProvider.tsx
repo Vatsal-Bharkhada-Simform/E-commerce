@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import { useCallback, useMemo, type ReactElement } from "react";
 import toast from "react-hot-toast";
 import type {

@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 

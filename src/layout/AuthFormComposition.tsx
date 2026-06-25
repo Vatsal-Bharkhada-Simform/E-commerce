@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import type { ReactNode } from "react";
 
 type AuthFormComposition_Type = {

@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import { Outlet } from "react-router";
 
 export function AuthLayout() {

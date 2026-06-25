@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import { Eye, EyeOff } from "lucide-react";
 import { useId, useState } from "react";
 

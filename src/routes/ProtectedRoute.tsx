@@ -1,3 +1,7 @@
+// ==========================================
+//           SKIP THIS FILE
+// ==========================================
+
 import { Navigate, Outlet } from "react-router";
 import { useAuth } from "../context/useAuth";
 
