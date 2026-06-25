@@ -6,9 +6,14 @@ import {
 	type ReactNode,
 } from "react";
 import toast from "react-hot-toast";
-import type { ProductList, ProductListState } from "../types/productTypes";
+import type {
+	Product,
+	ProductList,
+	ProductListState,
+} from "../types/productTypes";
 import { productInstance } from "../API/axios";
 import { ProductsContext } from "./ProductsContext";
+import axios from "axios";
 
 export function ProductsContextProvider({ children }: { children: ReactNode }) {
 	const [products, setProducts] = useState<ProductListState>([]);
@@ -46,12 +51,28 @@ export function ProductsContextProvider({ children }: { children: ReactNode }) {
 		return () => controller.abort();
 	}, []);
 
-	const getProductById = useCallback(
-		function getProductById(id: number) {
-			return products.find((product) => product.id === id);
-		},
-		[products]
-	);
+	const getProductById = useCallback(async function getProductById(
+		id: number
+	) {
+		try {
+			const response = await axios.get<Product>(
+				`https://api.escuelajs.co/api/v1/products/${id}`
+			);
+			if (response.status === 200) {
+				console.log(response.data);
+				return {
+					...response.data,
+					discount: Math.round((Math.random() / 2) * 100), // Mock discount generation
+				};
+			} else {
+				toast.error("Error while fetching data");
+			}
+		} catch (err) {
+			if (err instanceof Error) {
+				toast.error(`Error while fetching data: ${err.message}`);
+			}
+		}
+	}, []);
 
 	const ctxValue = useMemo(
 		() => ({
