@@ -1,9 +1,25 @@
 import { useProducts } from "../context/useProducts";
 import { ProductCard } from "../components/ProductCard";
 import Button from "../UI/Button";
+import { useState } from "react";
+import { useFilter } from "../context/useFilter";
+import type { ProductListState } from "../types/productTypes";
 
 export function Products() {
+	const [shouldCrash, setShouldCrash] = useState(false);
 	const { products } = useProducts();
+	const { searchQuery } = useFilter();
+
+	if (shouldCrash) {
+		throw new Error("Component failed to render");
+	}
+
+	let productsToDisplay: ProductListState = products;
+	if (searchQuery) {
+		productsToDisplay = products.filter((product) =>
+			product.title.toLowerCase().includes(searchQuery.toLowerCase())
+		);
+	}
 
 	return (
 		<section className="flex-1 flex flex-col overflow-hidden bg-card">
@@ -18,6 +34,12 @@ export function Products() {
 							<Button variant="SECONDARY">
 								Explore products
 							</Button>
+							<Button
+								variant="GHOST"
+								onClick={() => setShouldCrash(true)}
+							>
+								Generate Error
+							</Button>
 						</div>
 					</div>
 				</div>
@@ -27,11 +49,16 @@ export function Products() {
 				</div>
 				<div className="grid sm:grid-cols-3 md:grid-cols-4 gap-8">
 					{products.length === 0 ? (
-						<div className="col-span-4 flex p-20 justify-center items-center bg-gray-200 rounded-4xl">
+						<div className="col-span-4 flex p-20 justify-center items-center bg-accent/10 text-accent rounded-4xl">
 							Loading Products...
 						</div>
+					) : searchQuery &&
+					  (!productsToDisplay || productsToDisplay.length === 0) ? (
+						<div className="col-span-4 flex p-20 justify-center items-center bg-accent/10 text-accent rounded-4xl">
+							No products found
+						</div>
 					) : (
-						products.map((product) => {
+						productsToDisplay.map((product) => {
 							return (
 								<ProductCard
 									product={product}
