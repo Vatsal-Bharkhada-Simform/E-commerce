@@ -2,7 +2,7 @@ import type {
 	ProductListState,
 	ProductWithAdditionalData,
 } from "./productTypes";
-import type { LoginType, SignUpType, UserDataType } from "./formDataTypes";
+import type { LoginType, SignUpType } from "./formDataTypes";
 
 type ProductContextType = {
 	products: ProductListState;
@@ -37,7 +37,6 @@ export type AuthContextType = {
 	handleSignUp: (data: SignUpType) => Promise<boolean>;
 	handleLogin: (data: LoginType) => LoginReturnType;
 	handleLogout: () => void;
-	getUserData: () => UserDataType | null;
 	userExists: (email: string) => boolean;
 };
 

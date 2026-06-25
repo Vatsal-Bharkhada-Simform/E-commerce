@@ -91,20 +91,6 @@ export function AuthContextProvider({ children }: { children: ReactElement }) {
 		[setIsAuthenticated]
 	);
 
-	const getUserData = useCallback(
-		function getUserData() {
-			if (isAuthenticated.status) {
-				return (
-					userData.find(
-						(user) => user.email === isAuthenticated.userEmail
-					) ?? null
-				);
-			}
-			return null;
-		},
-		[isAuthenticated, userData]
-	);
-
 	const userExists = useCallback(
 		function userExists(email: string) {
 			return userData.findIndex((user) => user.email === email) !== -1;
@@ -118,17 +104,9 @@ export function AuthContextProvider({ children }: { children: ReactElement }) {
 			handleSignUp,
 			handleLogin,
 			handleLogout,
-			getUserData,
 			userExists,
 		}),
-		[
-			getUserData,
-			isAuthenticated,
-			handleLogin,
-			handleSignUp,
-			handleLogout,
-			userExists,
-		]
+		[isAuthenticated, handleLogin, handleSignUp, handleLogout, userExists]
 	);
 
 	return (
