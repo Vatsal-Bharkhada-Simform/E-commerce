@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LogOut, ShoppingCart } from "lucide-react";
+import { useLocation } from "react-router";
 import Button from "../UI/Button";
 import { useAuth } from "../context/useAuth";
 import { useProductParams } from "../hooks/useProductFilters";
@@ -10,7 +11,9 @@ export function Header({
 	searchRef: React.RefObject<HTMLInputElement | null>;
 }) {
 	const [inputValue, setInputValue] = useState("");
+
 	const { setSearchQuery } = useProductParams();
+	const { pathname } = useLocation();
 	const { handleLogout } = useAuth();
 
 	useEffect(() => {
@@ -31,15 +34,17 @@ export function Header({
 				</div>
 			</div>
 			<div className="flex items-center gap-2">
-				<input
-					type="search"
-					className="w-sm px-4 py-2 bg-gray-50 border border-border rounded-2xl"
-					placeholder="Search items..."
-					title="Search items"
-					ref={searchRef}
-					value={inputValue}
-					onChange={(e) => setInputValue(e.target.value)}
-				/>
+				{pathname === "/products" && (
+					<input
+						type="search"
+						className="w-sm px-4 py-1.5 bg-gray-50 border-2 border-gray-300 focus:border-accent/70 outline-0 focus:outline-3 outline-accent/20 rounded-2xl"
+						placeholder="Search items..."
+						title="Search items"
+						ref={searchRef}
+						value={inputValue}
+						onChange={(e) => setInputValue(e.target.value)}
+					/>
+				)}
 				<Button variant="PRIMARY" className="flex items-center gap-2">
 					<ShoppingCart
 						fill="#fff"
