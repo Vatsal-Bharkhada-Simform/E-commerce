@@ -1,6 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate, useParams } from "react-router";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ShoppingCart01 } from "@untitledui/icons";
 import Button from "../UI/Button";
@@ -13,7 +13,7 @@ export function ProductDetails() {
 	const [selectedImage, setSelectedImage] = useState(0);
 
 	const navigate = useNavigate();
-	const { id: productId } = useParams();
+	const { id: productId } = useParams<{ id: string }>();
 
 	const {
 		data: productData,
@@ -21,19 +21,19 @@ export function ProductDetails() {
 		error,
 	} = useQuery({
 		queryKey: ["products", productId],
-		queryFn: () => fetchProductsById(+(productId ?? "-1")),
+		queryFn: () => fetchProductsById(+productId!),
 		staleTime: 3_000_000,
+		enabled: !!productId,
 	});
 
 	if (!productId) {
-		navigate(ROUTES.PRODUCT.ROOT);
-		return null;
+		return <Navigate to={ROUTES.PRODUCT.ROOT} />;
 	}
 
 	if (error) {
 		toast.error("Failed to fetch product data");
 		console.error("Failed to fetch product data: " + error.message);
-		navigate(ROUTES.PRODUCT.ROOT);
+		return <Navigate to={ROUTES.PRODUCT.ROOT} />;
 	}
 
 	if (isLoading || !productData) {
