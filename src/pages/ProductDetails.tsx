@@ -72,7 +72,7 @@ export function ProductDetails() {
 							<div className="rounded-3xl overflow-hidden">
 								<img
 									src={productData.images[selectedImage]}
-									alt="Product image"
+									alt={productData.title}
 								/>
 							</div>
 							<Container type="ROW" className="gap-4 p-2">
@@ -87,7 +87,7 @@ export function ProductDetails() {
 										>
 											<img
 												src={imageUrl}
-												alt="Product image"
+												alt={`${productData.title} Image: ${index + 1}`}
 											/>
 										</button>
 									);
@@ -131,9 +131,9 @@ export function ProductDetails() {
 								</div>
 							</div>
 							<div>
-								<h1 className="text-gray-600">
+								<h2 className="text-gray-600">
 									{productData.description}
-								</h1>
+								</h2>
 							</div>
 							<div className="flex gap-4">
 								<Button
