@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useSearchParams } from "react-router";
 import {
 	priceOptions,
@@ -6,7 +7,6 @@ import {
 	validSortPaths,
 } from "../utils/sidebarData";
 import type { ProductListState } from "../types/productTypes";
-import { useCallback } from "react";
 
 type SortPathType = (typeof validSortPaths)[number];
 type PricePathType = (typeof validPricePaths)[number];
@@ -83,7 +83,7 @@ export function useProductFilters() {
 						.toLowerCase()
 						.includes(searchQuery.toLowerCase())
 				);
-            }
+			}
 
 			if (sortParam) {
 				if (sortParam === sortOptions.LOW_TO_HIGH.pathString) {
@@ -122,11 +122,11 @@ export function useProductFilters() {
 			) {
 				if (sortParam === sortOptions.LOW_TO_HIGH.pathString) {
 					productsToDisplay = productsToDisplay.toSorted(
-						(a, b) => a.price - b.price
+						(a, b) => a.discountedPrice - b.discountedPrice
 					);
 				} else if (sortParam === sortOptions.HIGH_TO_LOW.pathString) {
 					productsToDisplay = productsToDisplay.toSorted(
-						(a, b) => b.price - a.price
+						(a, b) => b.discountedPrice - a.discountedPrice
 					);
 				}
 			}
