@@ -1,7 +1,7 @@
 import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import type { NavButtonType } from "../types/ComponentTypes";
 import { NavList } from "../components/NavList";
-import { useProducts } from "../context/useProducts";
 import {
 	navListContent,
 	priceOptions,
@@ -10,11 +10,21 @@ import {
 import { useProductFilters } from "../hooks/useProductFilters";
 import { RadioButton } from "../components/RadioButton";
 import Button from "../UI/Button";
+import { fetchAllProducts } from "../API/services/fetchProducts";
 
 export function SideBar() {
-	const { products } = useProducts();
 	const { sortParam, priceParam, setSortParam, setPriceParam, resetParams } =
 		useProductFilters();
+
+	const { data: products = [], error } = useQuery({
+		queryKey: ["products"],
+		queryFn: fetchAllProducts,
+		staleTime: 3_000_000,
+	});
+
+	if (error) {
+		throw new Error("Failed to fetch product data: " + error.message);
+	}
 
 	const categories = useMemo(
 		() =>

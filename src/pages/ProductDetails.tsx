@@ -1,49 +1,40 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { Navigate, useNavigate, useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ShoppingCart01 } from "@untitledui/icons";
-import { useNavigate, useParams } from "react-router";
-import { useProducts } from "../context/useProducts";
 import Button from "../UI/Button";
-import {
-	BEST_VALUE_DISCOUNT_THRESHOLD,
-	type ProductWithAdditionalData,
-} from "../types/productTypes";
+import { BEST_VALUE_DISCOUNT_THRESHOLD } from "../types/productTypes";
 import { Container } from "../layout/Container";
-import { FetchedProductValidator } from "../validators/ProductValidator";
 import { ROUTES } from "../routes/routeStrings";
+import { fetchProductsById } from "../API/services/fetchProducts";
 
 export function ProductDetails() {
-	const [productData, setProductData] =
-		useState<ProductWithAdditionalData | null>(null);
 	const [selectedImage, setSelectedImage] = useState(0);
-	const [isLoading, setIsLoading] = useState(true);
-
-	const { getProductById } = useProducts();
 
 	const navigate = useNavigate();
-	const params = useParams();
+	const { id: productId } = useParams<{ id: string }>();
 
-	useEffect(() => {
-		async function fetchProductData() {
-			if (!params.id) {
-				navigate(ROUTES.PRODUCT.ROOT);
-				return;
-			}
+	const {
+		data: productData,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ["products", productId],
+		queryFn: () => fetchProductsById(+productId!),
+		staleTime: 3_000_000,
+		enabled: !!productId,
+	});
 
-			setIsLoading(true);
-			const product = await getProductById(parseInt(params.id));
-			const parsedData = FetchedProductValidator.safeParse(product);
+	if (!productId) {
+		return <Navigate to={ROUTES.PRODUCT.ROOT} />;
+	}
 
-			if (!product || !parsedData.success) {
-				setIsLoading(false);
-				navigate(ROUTES.PRODUCT.ROOT);
-				return;
-			}
-
-			setIsLoading(false);
-			setProductData(parsedData.data);
-		}
-		fetchProductData();
-	}, [getProductById, params.id, navigate]);
+	if (error) {
+		toast.error("Failed to fetch product data");
+		console.error("Failed to fetch product data: " + error.message);
+		return <Navigate to={ROUTES.PRODUCT.ROOT} />;
+	}
 
 	if (isLoading || !productData) {
 		return (
@@ -113,13 +104,7 @@ export function ProductDetails() {
 							</div>
 							<div className="flex gap-3 justify-start items-center">
 								<span className="text-5xl font-extrabold">
-									$
-									{(
-										productData.price -
-										(productData.price *
-											productData.discount) /
-											100
-									).toFixed(2)}
+									${productData.discountedPrice.toFixed(2)}
 								</span>
 								<span className="text-xl text-gray-400 line-through">
 									${productData.price}

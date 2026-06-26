@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useSearchParams } from "react-router";
 import {
 	priceOptions,
@@ -6,7 +7,6 @@ import {
 	validSortPaths,
 } from "../utils/sidebarData";
 import type { ProductListState } from "../types/productTypes";
-import { useCallback } from "react";
 
 type SortPathType = (typeof validSortPaths)[number];
 type PricePathType = (typeof validPricePaths)[number];
@@ -22,7 +22,11 @@ export function useProductFilters() {
 		function setSearchQuery(query: string) {
 			setSearchParams((prevParams) => {
 				const updatedParams = new URLSearchParams(prevParams);
-				updatedParams.set("q", query);
+				if (!query || !query.trim()) {
+					updatedParams.delete("q");
+				} else {
+					updatedParams.set("q", query);
+				}
 				return updatedParams;
 			});
 		},
@@ -32,10 +36,8 @@ export function useProductFilters() {
 	const setSortParam = useCallback(
 		function setSortParam(sortPathString: SortPathType) {
 			setSearchParams((prevParams) => {
-				console.log(prevParams);
 				const updatedParams = new URLSearchParams(prevParams);
 				if (sortPathString === sortOptions.RELEVANCE.pathString) {
-					console.log("HERE");
 					updatedParams.delete("sort");
 				} else {
 					updatedParams.set("sort", sortPathString);
@@ -85,6 +87,18 @@ export function useProductFilters() {
 				);
 			}
 
+			if (sortParam) {
+				if (sortParam === sortOptions.LOW_TO_HIGH.pathString) {
+					productsToDisplay = productsToDisplay.toSorted(
+						(a, b) => a.discountedPrice - b.discountedPrice
+					);
+				} else if (sortParam === sortOptions.HIGH_TO_LOW.pathString) {
+					productsToDisplay = productsToDisplay.toSorted(
+						(a, b) => b.discountedPrice - a.discountedPrice
+					);
+				}
+			}
+
 			if (
 				priceParam &&
 				validPricePaths.includes(priceParam as PricePathType)
@@ -94,14 +108,10 @@ export function useProductFilters() {
 				);
 				if (selectedPriceOption) {
 					productsToDisplay = productsToDisplay.filter((product) => {
-						const discountedPrice =
-							product.price -
-							(product.price * product.discount) / 100;
-
 						return (
-							discountedPrice >
+							product.discountedPrice >
 								selectedPriceOption.lowerPriceLimit &&
-							discountedPrice <=
+							product.discountedPrice <=
 								selectedPriceOption.upperPriceLimit
 						);
 					});
@@ -114,11 +124,11 @@ export function useProductFilters() {
 			) {
 				if (sortParam === sortOptions.LOW_TO_HIGH.pathString) {
 					productsToDisplay = productsToDisplay.toSorted(
-						(a, b) => a.price - b.price
+						(a, b) => a.discountedPrice - b.discountedPrice
 					);
 				} else if (sortParam === sortOptions.HIGH_TO_LOW.pathString) {
 					productsToDisplay = productsToDisplay.toSorted(
-						(a, b) => b.price - a.price
+						(a, b) => b.discountedPrice - a.discountedPrice
 					);
 				}
 			}

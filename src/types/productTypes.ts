@@ -17,6 +17,7 @@ interface Product {
 
 interface ProductWithAdditionalData extends Product {
 	discount: number;
+	discountedPrice: number;
 }
 
 type ProductList = Array<Product>;
