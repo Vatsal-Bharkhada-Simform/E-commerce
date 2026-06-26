@@ -5,11 +5,11 @@ import type {
 	ProductListState,
 	ProductWithAdditionalData,
 } from "../../types/productTypes";
-import { productInstance } from "../axios";
 import {
 	ProductListValidator,
 	ProductValidator,
 } from "../../validators/ProductValidator";
+import { productInstance } from "../axios";
 
 export async function fetchAllProducts(): Promise<ProductListState> {
 	try {
@@ -32,7 +32,7 @@ export async function fetchAllProducts(): Promise<ProductListState> {
 			const discount = Math.round((Math.random() / 2) * 100);
 			return {
 				...item,
-				discount, // Mock discount generation
+				discount, // Mock discount
 				discountedPrice: item.price - (item.price * discount) / 100,
 			};
 		});
@@ -57,13 +57,13 @@ export async function fetchProductsById(
 
 		const parsedData = ProductValidator.safeParse(response.data);
 		if (!parsedData.success) {
-			console.error("Zod Validation Error:", parsedData.error.format());
+			console.error("Zod Validation Error:", parsedData.error.message);
 			throw new Error("Received malformed product data from the server.");
 		}
 		const discount = Math.round((Math.random() / 2) * 100);
 		return {
 			...parsedData.data,
-			discount, // Mock discount generation
+			discount, // Mock discount
 			discountedPrice:
 				parsedData.data.price -
 				(parsedData.data.price * discount) / 100,
