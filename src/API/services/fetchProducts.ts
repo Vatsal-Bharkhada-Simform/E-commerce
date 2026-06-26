@@ -17,8 +17,6 @@ export async function fetchAllProducts(): Promise<ProductListState> {
 			"/products?offset=0&limit=30"
 		);
 
-		console.log(response);
-
 		if (response.status !== 200) {
 			throw new Error(`Unexpected status code: ${response.status}`);
 		}

@@ -32,10 +32,8 @@ export function useProductFilters() {
 	const setSortParam = useCallback(
 		function setSortParam(sortPathString: SortPathType) {
 			setSearchParams((prevParams) => {
-				console.log(prevParams);
 				const updatedParams = new URLSearchParams(prevParams);
 				if (sortPathString === sortOptions.RELEVANCE.pathString) {
-					console.log("HERE");
 					updatedParams.delete("sort");
 				} else {
 					updatedParams.set("sort", sortPathString);
