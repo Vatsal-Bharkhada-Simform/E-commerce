@@ -22,7 +22,11 @@ export function useProductFilters() {
 		function setSearchQuery(query: string) {
 			setSearchParams((prevParams) => {
 				const updatedParams = new URLSearchParams(prevParams);
-				updatedParams.set("q", query);
+				if (!query || !query.trim()) {
+					updatedParams.delete("q");
+				} else {
+					updatedParams.set("q", query);
+				}
 				return updatedParams;
 			});
 		},

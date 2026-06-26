@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { ProductCard } from "../components/ProductCard";
-import type { ProductListState } from "../types/productTypes";
 import { useProductFilters } from "../hooks/useProductFilters";
 import { fetchAllProducts } from "../API/services/fetchProducts";
 
@@ -29,9 +28,7 @@ export function Products() {
 		);
 	}
 
-	let productsToDisplay: ProductListState = products;
-
-	productsToDisplay = sortAndFilterProducts(productsToDisplay);
+	const productsToDisplay = sortAndFilterProducts(products);
 
 	return (
 		<>
