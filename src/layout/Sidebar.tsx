@@ -9,10 +9,11 @@ import {
 } from "../utils/sidebarData";
 import { useProductFilters } from "../hooks/useProductFilters";
 import { RadioButton } from "../components/RadioButton";
+import Button from "../UI/Button";
 
 export function SideBar() {
 	const { products } = useProducts();
-	const { sortParam, priceParam, setSortParam, setPriceParam } =
+	const { sortParam, priceParam, setSortParam, setPriceParam, resetParams } =
 		useProductFilters();
 
 	const categories = useMemo(
@@ -60,47 +61,73 @@ export function SideBar() {
 				})}
 			</NavList>
 			<div className="text-gray-600">
-				<div className="p-4 flex flex-col gap-4">
-					<span className="uppercase tracking-wider text-sm text-gray-500">
-						Sort by
+				<div className="flex justify-between">
+					<span className="uppercase tracking-wider p-2">
+						Filters
 					</span>
-					<div className="flex flex-col gap-3">
-						{Object.entries(sortOptions).map(([, option]) => (
-							<RadioButton
-								key={option.pathString}
-								labelText={option.name}
-								id={`sortOption:${option.name}`}
-								onChange={() => setSortParam(option.pathString)}
-								checked={
-									sortParam === option.pathString ||
-									(!sortParam &&
-										option.pathString === "relevance")
-								}
-								className="accent-accent"
-							/>
-						))}
-					</div>
+					<Button
+						variant="GHOST"
+						title="Clear filters"
+						onClick={resetParams}
+					>
+						Clear filters
+					</Button>
 				</div>
-				<div className="p-4 flex flex-col gap-4">
-					<span className="uppercase tracking-wider text-sm text-gray-500">
-						Price
-					</span>
-					<div className="flex flex-col gap-3">
-						{Object.entries(priceOptions).map(([, option]) => (
-							<RadioButton
-								key={option.pathString}
-								labelText={option.textToDisplay}
-								id={`priceOption:${option.textToDisplay}`}
-								onChange={() =>
-									setPriceParam(option.pathString)
-								}
-								checked={
-									priceParam === option.pathString ||
-									(!priceParam && option.pathString === "any")
-								}
-								className="accent-accent"
-							/>
-						))}
+				<div className="pl-4">
+					<div className="border-l border-l-border">
+						<div className="p-4 flex flex-col gap-4">
+							<span className="uppercase tracking-wider text-sm text-gray-500">
+								Sort by
+							</span>
+							<div className="flex flex-col gap-3">
+								{Object.entries(sortOptions).map(
+									([, option]) => (
+										<RadioButton
+											key={option.pathString}
+											labelText={option.name}
+											id={`sortOption:${option.name}`}
+											onChange={() =>
+												setSortParam(option.pathString)
+											}
+											checked={
+												sortParam ===
+													option.pathString ||
+												(!sortParam &&
+													option.pathString ===
+														"relevance")
+											}
+											className="accent-accent"
+										/>
+									)
+								)}
+							</div>
+						</div>
+						<div className="p-4 flex flex-col gap-4">
+							<span className="uppercase tracking-wider text-sm text-gray-500">
+								Price
+							</span>
+							<div className="flex flex-col gap-3">
+								{Object.entries(priceOptions).map(
+									([, option]) => (
+										<RadioButton
+											key={option.pathString}
+											labelText={option.textToDisplay}
+											id={`priceOption:${option.textToDisplay}`}
+											onChange={() =>
+												setPriceParam(option.pathString)
+											}
+											checked={
+												priceParam ===
+													option.pathString ||
+												(!priceParam &&
+													option.pathString === "any")
+											}
+											className="accent-accent"
+										/>
+									)
+								)}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

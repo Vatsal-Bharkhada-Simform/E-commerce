@@ -32,8 +32,10 @@ export function useProductFilters() {
 	const setSortParam = useCallback(
 		function setSortParam(sortPathString: SortPathType) {
 			setSearchParams((prevParams) => {
+				console.log(prevParams);
 				const updatedParams = new URLSearchParams(prevParams);
-				if (sortPathString === "relevance") {
+				if (sortPathString === sortOptions.RELEVANCE.pathString) {
+					console.log("HERE");
 					updatedParams.delete("sort");
 				} else {
 					updatedParams.set("sort", sortPathString);
@@ -48,12 +50,24 @@ export function useProductFilters() {
 		function setPriceParam(pricePathString: PricePathType) {
 			setSearchParams((prevParams) => {
 				const updatedParams = new URLSearchParams(prevParams);
-				if (pricePathString === "any") {
+				if (pricePathString === priceOptions.PRICE_ANY.pathString) {
 					updatedParams.delete("price");
 				} else {
 					updatedParams.set("price", pricePathString);
 				}
 				return updatedParams;
+			});
+		},
+		[setSearchParams]
+	);
+
+	const resetParams = useCallback(
+		function resetParams() {
+			setSearchParams((prevParams) => {
+				const clearedParams = new URLSearchParams(prevParams);
+				clearedParams.delete("sort");
+				clearedParams.delete("price");
+				return clearedParams;
 			});
 		},
 		[setSearchParams]
@@ -121,6 +135,7 @@ export function useProductFilters() {
 		setSearchQuery,
 		setSortParam,
 		setPriceParam,
+		resetParams,
 		sortAndFilterProducts,
 	};
 }
