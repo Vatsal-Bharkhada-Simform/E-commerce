@@ -18,6 +18,8 @@ export function Header({
 	const { handleLogout } = useAuth();
 
 	useEffect(() => {
+		if (!inputValue.trim()) return;
+
 		const timer = setTimeout(() => {
 			setSearchQuery(inputValue);
 		}, 300);
