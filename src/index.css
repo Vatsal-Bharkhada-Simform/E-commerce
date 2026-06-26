@@ -8,6 +8,8 @@
 @theme {
 	--inset-shadow-bottom: inset 10px 5px 100px 10px #000: --bg-app: #f5f4ef;
 	--shadow-image-card: 0 0 0 3px white, 0 0 0 6px #3b593f;
+	--shadow-primary: inset 0 -4px 14px 0px #ffffff60, 0 5px 10px 0px #3b593f20;
+	--shadow-card: 0 0 20px 0px #aaaaaa30;
 
 	--color-panel: #ffffff;
 	--color-card: #faf9f5;

@@ -1,55 +1,54 @@
-import { useRef } from "react";
-import { ErrorBoundary } from "./components/ErrorBoundary";
-import { useProducts } from "./context/useProducts";
-import { Container } from "./layout/Container";
-import { Footer } from "./layout/Footer";
-import { Header } from "./layout/Header";
-import { ProductDetails } from "./layout/ProductDetails";
-import { Products } from "./layout/Products";
-import { SideBar } from "./layout/Sidebar";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { ProductDetails } from "./pages/ProductDetails";
+import { Products } from "./pages/Products";
+import { RootLayout } from "./layout/RootLayout";
+import { AuthLayout } from "./layout/AuthLayout";
+import { SignUp } from "./pages/SignUp";
+import { Login } from "./pages/Login";
+import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { ROUTES } from "./routes/routeStrings";
 
 function App() {
-	const { selectedProduct } = useProducts();
-	const searchRef = useRef<HTMLInputElement | null>(null);
-
-	function focusOnSearch() {
-		if (!searchRef.current) return;
-		searchRef.current.focus();
-	}
-
 	return (
 		<>
-			<Container
-				type="COLUMN"
-				className="w-screen h-screen overflow-hidden"
-			>
-				<Header searchRef={searchRef} />
-				<ErrorBoundary defaultMessage="Error while loading products">
-					{selectedProduct ? (
-						<Container
-							type="ROW"
-							className="flex justify-center flex-1"
-						>
-							<div className="overflow-y-auto w-[70vw]">
-								<ProductDetails
-									selectedProduct={selectedProduct}
-								/>
-							</div>
-						</Container>
-					) : (
-						<Container
-							type="ROW"
-							className="w-full flex-1 overflow-hidden"
-						>
-							<SideBar />
-							<main className="flex-1 flex flex-col overflow-hidden">
-								<Products />
-							</main>
-						</Container>
-					)}
-				</ErrorBoundary>
-				<Footer focusOnSearch={focusOnSearch} />
-			</Container>
+			<BrowserRouter>
+				<Routes>
+					<Route path={ROUTES.AUTH.ROOT} element={<AuthLayout />}>
+						<Route path={ROUTES.AUTH.SIGNUP} element={<SignUp />} />
+						<Route path={ROUTES.AUTH.LOGIN} element={<Login />} />
+					</Route>
+
+					<Route
+						path={ROUTES.GLOBAL_ROOT}
+						element={<ProtectedRoute />}
+					>
+						<Route element={<RootLayout />}>
+							<Route
+								index
+								element={
+									<Navigate
+										to={ROUTES.PRODUCT.ROOT}
+										replace
+									/>
+								}
+							/>
+							<Route
+								path={ROUTES.PRODUCT.ROOT}
+								element={<Products />}
+							/>
+							<Route
+								path={ROUTES.PRODUCT.INDIVIDUAL}
+								element={<ProductDetails />}
+							/>
+						</Route>
+					</Route>
+
+					<Route
+						path={ROUTES.CATCH_ALL}
+						element={<Navigate to={ROUTES.AUTH.LOGIN} />}
+					/>
+				</Routes>
+			</BrowserRouter>
 		</>
 	);
 }

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Heart, ShoppingCart01 } from "@untitledui/icons";
+import { useNavigate } from "react-router";
 import Button from "../UI/Button";
 import {
 	BEST_VALUE_DISCOUNT_THRESHOLD,
 	type ProductWithAdditionalData,
 } from "../types/productTypes";
-import { useProducts } from "../context/useProducts";
 import { ImageCarousel } from "./ImageCarousel";
 
 export function ProductCard({
@@ -14,7 +14,7 @@ export function ProductCard({
 	product: ProductWithAdditionalData;
 }) {
 	const [isWishListed, setIsWishListed] = useState<boolean>(false);
-	const { setProduct } = useProducts();
+	const navigate = useNavigate();
 
 	return (
 		<div className="w-full bg-white border border-border shadow-md rounded-4xl flex flex-col gap-2 overflow-hidden">
@@ -40,7 +40,7 @@ export function ProductCard({
 			</div>
 			<div
 				className="flex-1 flex flex-col justify-between gap-5 p-4 cursor-pointer"
-				onClick={() => setProduct(product)}
+				onClick={() => navigate(`/products/${product.id}`)}
 			>
 				<div className="flex-1 flex flex-col gap-4 overflow-hidden">
 					<div className="flex gap-3 justify-start items-center">
