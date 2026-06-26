@@ -54,7 +54,7 @@ export const sortOptions = {
 export const priceOptions = {
 	PRICE_ANY: {
 		lowerPriceLimit: 0,
-		upperPriceLimit: NaN,
+		upperPriceLimit: Infinity,
 		textToDisplay: "Any",
 		pathString: "any",
 	},
