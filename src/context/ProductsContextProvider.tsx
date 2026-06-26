@@ -28,18 +28,14 @@ export function ProductsContextProvider({ children }: { children: ReactNode }) {
 						signal: controller.signal,
 					}
 				);
-				if (response.status === 200) {
-					setProducts(
-						response.data.map((item) => {
-							return {
-								...item,
-								discount: Math.round((Math.random() / 2) * 100), // Mock discount generation
-							};
-						})
-					);
-				} else {
-					toast.error("Error while fetching data");
-				}
+				setProducts(
+					response.data.map((item) => {
+						return {
+							...item,
+							discount: Math.round((Math.random() / 2) * 100), // Mock discount generation
+						};
+					})
+				);
 			} catch (err) {
 				if (err instanceof Error) {
 					toast.error(`Error while fetching data: ${err.message}`);
@@ -58,14 +54,10 @@ export function ProductsContextProvider({ children }: { children: ReactNode }) {
 			const response = await axios.get<Product>(
 				`https://api.escuelajs.co/api/v1/products/${id}`
 			);
-			if (response.status === 200) {
-				return {
-					...response.data,
-					discount: Math.round((Math.random() / 2) * 100), // Mock discount generation
-				};
-			} else {
-				toast.error("Error while fetching data");
-			}
+			return {
+				...response.data,
+				discount: Math.round((Math.random() / 2) * 100), // Mock discount generation
+			};
 		} catch (err) {
 			if (err instanceof Error) {
 				toast.error(`Error while fetching data: ${err.message}`);
