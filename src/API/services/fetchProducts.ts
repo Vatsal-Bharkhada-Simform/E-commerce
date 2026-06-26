@@ -1,15 +1,17 @@
-import toast from "react-hot-toast";
 import type {
 	Product,
 	ProductList,
 	ProductListState,
 	ProductWithAdditionalData,
 } from "../../types/productTypes";
+import { reduceStringToInteger } from "../../utils/reduceStringtoInteger";
 import {
 	ProductListValidator,
 	ProductValidator,
 } from "../../validators/ProductValidator";
 import { productInstance } from "../axios";
+
+const MAX_DISCOUNT = 50;
 
 export async function fetchAllProducts(): Promise<ProductListState> {
 	try {
@@ -27,7 +29,7 @@ export async function fetchAllProducts(): Promise<ProductListState> {
 			throw new Error("Received malformed product data from the server.");
 		}
 		return parsedData.data.map((item) => {
-			const discount = Math.round((Math.random() / 2) * 100);
+			const discount = reduceStringToInteger(item.title) % MAX_DISCOUNT;
 			return {
 				...item,
 				discount, // Mock discount
@@ -37,8 +39,7 @@ export async function fetchAllProducts(): Promise<ProductListState> {
 	} catch (err) {
 		const errorMessage =
 			err instanceof Error ? err.message : "An unknown error occurred";
-		toast.error(`Error while fetching data: ${errorMessage}`);
-
+		console.error(errorMessage);
 		throw err;
 	}
 }
@@ -58,7 +59,8 @@ export async function fetchProductsById(
 			console.error("Zod Validation Error:", parsedData.error.message);
 			throw new Error("Received malformed product data from the server.");
 		}
-		const discount = Math.round((Math.random() / 2) * 100);
+		const discount =
+			reduceStringToInteger(parsedData.data.title) % MAX_DISCOUNT;
 		return {
 			...parsedData.data,
 			discount, // Mock discount
@@ -69,8 +71,7 @@ export async function fetchProductsById(
 	} catch (err) {
 		const errorMessage =
 			err instanceof Error ? err.message : "An unknown error occurred";
-		toast.error(`Error while fetching data: ${errorMessage}`);
-
+		console.error(errorMessage);
 		throw err;
 	}
 }
