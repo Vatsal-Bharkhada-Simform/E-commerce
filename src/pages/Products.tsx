@@ -10,19 +10,13 @@ import { useProductFilters } from "../hooks/useProductFilters";
 export function Products() {
 	const [shouldCrash, setShouldCrash] = useState(false);
 	const { products } = useProducts();
-	const { searchQuery, sortAndFilterProducts } = useProductFilters();
+	const { sortAndFilterProducts } = useProductFilters();
 
 	if (shouldCrash) {
 		throw new Error("Component failed to render");
 	}
 
 	let productsToDisplay: ProductListState = products;
-
-	if (searchQuery) {
-		productsToDisplay = products.filter((product) =>
-			product.title.toLowerCase().includes(searchQuery.toLowerCase())
-		);
-	}
 
 	productsToDisplay = sortAndFilterProducts(productsToDisplay);
 
@@ -55,7 +49,7 @@ export function Products() {
 						</div>
 						<div className="pt-8 pb-4 px-2 text-lg text-gray-600">
 							{productsToDisplay.length > 0 &&
-								`Showing ${productsToDisplay.length} out of ${Math.max(productsToDisplay.length, 200)} products`}
+								`Showing ${productsToDisplay.length} out of ${products.length} products`}
 						</div>
 						<div className="grid sm:grid-cols-3 md:grid-cols-4 gap-8">
 							{products.length === 0 ? (

@@ -63,19 +63,12 @@ export function useProductFilters() {
 		function sortAndFilterProducts(products: ProductListState) {
 			let productsToDisplay: ProductListState = products;
 
-			if (
-				sortParam &&
-				validSortPaths.includes(sortParam as SortPathType)
-			) {
-				if (sortParam === sortOptions.LOW_TO_HIGH.pathString) {
-					productsToDisplay = productsToDisplay.toSorted(
-						(a, b) => a.price - b.price
-					);
-				} else if (sortParam === sortOptions.HIGH_TO_LOW.pathString) {
-					productsToDisplay = productsToDisplay.toSorted(
-						(a, b) => b.price - a.price
-					);
-				}
+			if (searchQuery) {
+				productsToDisplay = products.filter((product) =>
+					product.title
+						.toLowerCase()
+						.includes(searchQuery.toLowerCase())
+				);
 			}
 
 			if (
@@ -100,9 +93,25 @@ export function useProductFilters() {
 					});
 				}
 			}
+
+			if (
+				sortParam &&
+				validSortPaths.includes(sortParam as SortPathType)
+			) {
+				if (sortParam === sortOptions.LOW_TO_HIGH.pathString) {
+					productsToDisplay = productsToDisplay.toSorted(
+						(a, b) => a.price - b.price
+					);
+				} else if (sortParam === sortOptions.HIGH_TO_LOW.pathString) {
+					productsToDisplay = productsToDisplay.toSorted(
+						(a, b) => b.price - a.price
+					);
+				}
+			}
+
 			return productsToDisplay;
 		},
-		[sortParam, priceParam]
+		[sortParam, priceParam, searchQuery]
 	);
 
 	return {
