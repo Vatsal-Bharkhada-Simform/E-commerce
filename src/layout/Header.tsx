@@ -3,7 +3,7 @@ import { LogOut, ShoppingCart } from "lucide-react";
 import { useLocation } from "react-router";
 import Button from "../UI/Button";
 import { useAuth } from "../context/useAuth";
-import { useProductParams } from "../hooks/useProductFilters";
+import { useProductFilters } from "../hooks/useProductFilters";
 
 export function Header({
 	searchRef,
@@ -12,7 +12,7 @@ export function Header({
 }) {
 	const [inputValue, setInputValue] = useState("");
 
-	const { setSearchQuery } = useProductParams();
+	const { setSearchQuery } = useProductFilters();
 	const { pathname } = useLocation();
 	const { handleLogout } = useAuth();
 

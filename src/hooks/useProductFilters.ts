@@ -11,7 +11,7 @@ import { useCallback } from "react";
 type SortPathType = (typeof validSortPaths)[number];
 type PricePathType = (typeof validPricePaths)[number];
 
-export function useProductParams() {
+export function useProductFilters() {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const searchQuery = searchParams.get("q");
@@ -63,7 +63,10 @@ export function useProductParams() {
 		function sortAndFilterProducts(products: ProductListState) {
 			let productsToDisplay: ProductListState = products;
 
-			if (sortParam) {
+			if (
+				sortParam &&
+				validSortPaths.includes(sortParam as SortPathType)
+			) {
 				if (sortParam === sortOptions.LOW_TO_HIGH.pathString) {
 					productsToDisplay = productsToDisplay.toSorted(
 						(a, b) => a.price - b.price

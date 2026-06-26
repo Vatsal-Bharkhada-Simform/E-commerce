@@ -7,13 +7,13 @@ import {
 	priceOptions,
 	sortOptions,
 } from "../utils/sidebarData";
-import { useProductParams } from "../hooks/useProductFilters";
+import { useProductFilters } from "../hooks/useProductFilters";
 import { RadioButton } from "../components/RadioButton";
 
 export function SideBar() {
 	const { products } = useProducts();
 	const { sortParam, priceParam, setSortParam, setPriceParam } =
-		useProductParams();
+		useProductFilters();
 
 	const categories = useMemo(
 		() =>

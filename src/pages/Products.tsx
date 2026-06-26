@@ -5,12 +5,12 @@ import Button from "../UI/Button";
 import type { ProductListState } from "../types/productTypes";
 import { Container } from "../layout/Container";
 import { SideBar } from "../layout/Sidebar";
-import { useProductParams } from "../hooks/useProductFilters";
+import { useProductFilters } from "../hooks/useProductFilters";
 
 export function Products() {
 	const [shouldCrash, setShouldCrash] = useState(false);
 	const { products } = useProducts();
-	const { searchQuery, sortAndFilterProducts } = useProductParams();
+	const { searchQuery, sortAndFilterProducts } = useProductFilters();
 
 	if (shouldCrash) {
 		throw new Error("Component failed to render");
