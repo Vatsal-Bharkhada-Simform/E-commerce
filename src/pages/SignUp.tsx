@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { SignUpForm } from "../components/auth/SignUpForm";
 import { AuthFormComposition } from "../layout/AuthFormComposition";
+import { ROUTES } from "../routes/routeStrings";
 
 const stepMessages = [
 	{
@@ -56,7 +57,7 @@ function SignUp() {
 				<>
 					Already have an account?{" "}
 					<Link
-						to={"/auth/login"}
+						to={ROUTES.AUTH.LOGIN}
 						className="font-semibold text-blue-600"
 					>
 						Login

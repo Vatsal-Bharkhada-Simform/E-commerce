@@ -11,6 +11,7 @@ import { useAuth } from "../../context/useAuth";
 import { Input } from "../../UI/Input";
 import { PasswordInput } from "../../UI/PasswordInput";
 import Button from "../../UI/Button";
+import { ROUTES } from "../../routes/routeStrings";
 
 export function LoginForm() {
 	const {
@@ -29,7 +30,7 @@ export function LoginForm() {
 	function loginUser(data: LoginType) {
 		const res = handleLogin(data);
 		if (res.status === "success") {
-			navigate("/products");
+			navigate(ROUTES.PRODUCT.ROOT);
 		} else {
 			setError(res.errorField as keyof LoginType, {
 				message: res.message,

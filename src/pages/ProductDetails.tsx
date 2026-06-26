@@ -9,6 +9,7 @@ import {
 } from "../types/productTypes";
 import { Container } from "../layout/Container";
 import { FetchedProductValidator } from "../validators/ProductValidator";
+import { ROUTES } from "../routes/routeStrings";
 
 export function ProductDetails() {
 	const [productData, setProductData] =
@@ -24,7 +25,7 @@ export function ProductDetails() {
 	useEffect(() => {
 		async function fetchProductData() {
 			if (!params.id) {
-				navigate("/products");
+				navigate(ROUTES.PRODUCT.ROOT);
 				return;
 			}
 
@@ -34,7 +35,7 @@ export function ProductDetails() {
 
 			if (!product || !parsedData.success) {
 				setIsLoading(false);
-				navigate("/products");
+				navigate(ROUTES.PRODUCT.ROOT);
 				return;
 			}
 
@@ -61,7 +62,7 @@ export function ProductDetails() {
 					<Button
 						variant="GHOST"
 						className="self-baseline"
-						onClick={() => navigate("/products")}
+						onClick={() => navigate(ROUTES.PRODUCT.ROOT)}
 					>
 						<ArrowLeft size={18} className="inline-block" />
 						Go back

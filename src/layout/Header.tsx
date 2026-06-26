@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import Button from "../UI/Button";
 import { useAuth } from "../context/useAuth";
 import { useProductFilters } from "../hooks/useProductFilters";
+import { ROUTES } from "../routes/routeStrings";
 
 export function Header({
 	searchRef,
@@ -34,7 +35,7 @@ export function Header({
 				</div>
 			</div>
 			<div className="flex items-center gap-2">
-				{pathname === "/products" && (
+				{pathname === ROUTES.PRODUCT.ROOT && (
 					<input
 						type="search"
 						className="w-sm px-4 py-1.5 bg-gray-50 border-2 border-gray-300 focus:border-accent/70 outline-0 focus:outline-3 outline-accent/20 rounded-2xl"

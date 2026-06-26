@@ -4,6 +4,7 @@
 
 import { Navigate, Outlet } from "react-router";
 import { useAuth } from "../context/useAuth";
+import { ROUTES } from "./routeStrings";
 
 export function ProtectedRoute() {
 	const { isAuthenticated } = useAuth();
@@ -12,5 +13,5 @@ export function ProtectedRoute() {
 		return <Outlet />;
 	}
 
-	return <Navigate to={"/auth/login"} replace />;
+	return <Navigate to={ROUTES.AUTH.LOGIN} replace />;
 }

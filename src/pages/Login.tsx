@@ -5,6 +5,7 @@
 import { Link } from "react-router";
 import { LoginForm } from "../components/auth/LoginForm";
 import { AuthFormComposition } from "../layout/AuthFormComposition";
+import { ROUTES } from "../routes/routeStrings";
 
 export function Login() {
 	return (
@@ -15,7 +16,7 @@ export function Login() {
 				<>
 					Don't have an account?{" "}
 					<Link
-						to={"/auth/signup"}
+						to={ROUTES.AUTH.SIGNUP}
 						className="font-semibold text-blue-600"
 					>
 						Create a new account

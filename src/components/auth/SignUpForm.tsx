@@ -16,6 +16,7 @@ import { Input } from "../../UI/Input";
 import { Select } from "../../UI/Select";
 import { PasswordInput } from "../../UI/PasswordInput";
 import Button from "../../UI/Button";
+import { ROUTES } from "../../routes/routeStrings";
 
 type SignUpFormProps = {
 	formStep: number;
@@ -49,7 +50,7 @@ export function SignUpForm({ formStep, setFormStep }: SignUpFormProps) {
 	async function signUpUser(data: SignUpType) {
 		const res = await handleSignUp(data);
 		if (res) {
-			navigate("/auth/login");
+			navigate(ROUTES.AUTH.LOGIN);
 		} else {
 			toast.error("Something went wrong");
 		}
