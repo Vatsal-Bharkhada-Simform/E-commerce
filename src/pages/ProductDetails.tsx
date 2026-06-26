@@ -13,17 +13,22 @@ export function ProductDetails() {
 	const [selectedImage, setSelectedImage] = useState(0);
 
 	const navigate = useNavigate();
-	const params = useParams();
+	const { id: productId } = useParams();
 
 	const {
 		data: productData,
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ["products", params.id],
-		queryFn: () => fetchProductsById(parseInt(params.id)),
+		queryKey: ["products", productId],
+		queryFn: () => fetchProductsById(+(productId ?? "-1")),
 		staleTime: 3_000_000,
 	});
+
+	if (!productId) {
+		navigate(ROUTES.PRODUCT.ROOT);
+		return null;
+	}
 
 	if (error) {
 		toast.error("Failed to fetch product data");
